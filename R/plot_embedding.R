@@ -26,7 +26,8 @@
 #' @param selected Optional subset of groups to show; the other cells are drawn in light grey.
 #' @param plot_theme Optional ggplot2 theme to add.
 #' @param color_df Colors: a data frame with the groups in its first column and the colors in its second (e.g.
-#'   `group`, `colour`), or a named color vector. Default: ggplot's hue palette.
+#'   `group`, `colour`), a named color vector, or a palette name such as `'met:Hiroshige'` ([PaletteColors()]).
+#'   Default: ggplot's hue palette.
 #' @param plot_ratio If TRUE, fix the aspect ratio (`coord_equal()`).
 #' @param corner_axes If TRUE, replace the axes with short corner axes ([EmbeddingAxes()]).
 #' @param axes_labels Corner-axis labels; default from the reduction name ('UMAP 1', 'UMAP 2', ...).
@@ -154,7 +155,8 @@ PlotEmbedding <- function(
 #' @param point_size Point size.
 #' @param plot_max,plot_min Upper and lower color limits: a percentile string such as `'q99'`, or a number.
 #' @param same_range If TRUE, all features share one color range.
-#' @param colfunc Palette function (integer -> colors); default `viridis::inferno`.
+#' @param colfunc Palette function (integer -> colors) or a palette name ([PaletteColors()]); default
+#'   `viridis::inferno`.
 #' @param rev_colors Reverse the palette.
 #' @param corner_axes If TRUE, add short corner axes ([EmbeddingAxes()]).
 #' @param axes_labels Corner-axis labels; default from the reduction name.

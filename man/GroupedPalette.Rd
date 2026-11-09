@@ -11,8 +11,9 @@ GroupedPalette(members, parents, ramps = NULL, family_labels = NULL)
 
 \item{parents}{Parent group of each entry of \code{members}, same length.}
 
-\item{ramps}{Optional named list of color ramps, one per parent (e.g. \code{list(LC = c('#c7e9c0', '#00441b'))}).
-Default: one light-to-dark HCL ramp per parent, hues evenly spaced.}
+\item{ramps}{Optional named list of color ramps, one per parent: colors (e.g. \code{list(LC = c('#c7e9c0', '#00441b'))})
+or palette names (\code{\link[=PaletteColors]{PaletteColors()}}, e.g. \code{list(LC = 'brewer:Greens')}). Default: one light-to-dark HCL ramp per
+parent, hues evenly spaced.}
 
 \item{family_labels}{Optional named vector of legend labels for the parents (e.g. \code{c(LC = 'Lung cancer')}).}
 }

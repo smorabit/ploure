@@ -35,7 +35,8 @@ variables.}
 \item \code{vars}: the columns of \code{samples} to draw, one tile row each; names, if given, are the row labels
 (e.g. \code{c('Chemistry' = 'chemistry', 'Site' = 'site')});
 \item \code{colors}: for a categorical block, named colors (their order is the legend order; values without a color are
-drawn as missing); for a continuous block, the low and high colors (default grey to dark blue);
+drawn as missing) or a palette name (\code{\link[=PaletteColors]{PaletteColors()}}); for a continuous block, the colors from low to high
+(default grey to dark blue) or a palette name;
 \item \code{title}: the legend title (default: the first row label);
 \item \code{limits}: for a continuous block, the color limits.
 }}

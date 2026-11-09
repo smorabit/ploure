@@ -61,7 +61,8 @@ frame, a single name such as \code{'umap'} uses the columns \code{umap_1} and \c
 \item{plot_theme}{Optional ggplot2 theme to add.}
 
 \item{color_df}{Colors: a data frame with the groups in its first column and the colors in its second (e.g.
-\code{group}, \code{colour}), or a named color vector. Default: ggplot's hue palette.}
+\code{group}, \code{colour}), a named color vector, or a palette name such as \code{'met:Hiroshige'} (\code{\link[=PaletteColors]{PaletteColors()}}).
+Default: ggplot's hue palette.}
 
 \item{plot_ratio}{If TRUE, fix the aspect ratio (\code{coord_equal()}).}
 

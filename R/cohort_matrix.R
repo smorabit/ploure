@@ -20,7 +20,8 @@
 #'   * `vars`: the columns of `samples` to draw, one tile row each; names, if given, are the row labels
 #'     (e.g. `c('Chemistry' = 'chemistry', 'Site' = 'site')`);
 #'   * `colors`: for a categorical block, named colors (their order is the legend order; values without a color are
-#'     drawn as missing); for a continuous block, the low and high colors (default grey to dark blue);
+#'     drawn as missing) or a palette name ([PaletteColors()]); for a continuous block, the colors from low to high
+#'     (default grey to dark blue) or a palette name;
 #'   * `title`: the legend title (default: the first row label);
 #'   * `limits`: for a continuous block, the color limits.
 #' @param sample_col Column of `samples` with the sample names (matched against `bar_data`).
@@ -233,11 +234,11 @@ CohortMatrix <- function(
         scale_y_discrete(expand = c(0, 0))
     if(continuous){
         colors <- if(is.null(block$colors)) c('grey97', '#08306b') else block$colors
-        p + scale_fill_gradient(low = colors[1], high = colors[2], limits = block$limits, name = block$title,
-                                na.value = na_color)
+        if(.IsPaletteName(colors)) colors <- PaletteColors(colors, 100, type = 'continuous')
+        p + scale_fill_gradientn(colors = colors, limits = block$limits, name = block$title, na.value = na_color)
     } else {
         values <- sort(unique(stats::na.omit(plot_df$value)))
-        colors <- if(is.null(block$colors)) .AsNamedColors(NULL, values) else block$colors
+        colors <- .AsNamedColors(block$colors, values)
         p + scale_fill_manual(values = colors, limits = names(colors), name = block$title, na.value = na_color,
                               na.translate = FALSE)
     }

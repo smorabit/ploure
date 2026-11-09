@@ -1,5 +1,9 @@
 # ploure (development version)
 
+* Palettes from other packages: `PaletteColors()`, `ColorMap()`, `PaletteFunction()` and `ListPalettes()` take
+  palettes from MetBrewer (`'met:Hiroshige'`), NatParksPalettes (`'parks:Yellowstone'`), RColorBrewer, viridisLite
+  and base R HCL palettes. Every colors argument (`color_df`, `full_colors`, `colors`, `colfunc`, cohort-matrix
+  blocks, `GroupedPalette()` ramps) also takes a palette name.
 * `QCFlowChart()`: a left-to-right QC flow chart from a table of steps (a shared trunk that fans out into one row per
   branch) and a table of removals by category. Generalized from PLEURA's v2 QC flow chart, which it reproduces
   (`validation/pleura_qc_flow_chart.R`). Example data: `sim_qc_steps`, `sim_qc_removals`.

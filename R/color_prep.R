@@ -61,6 +61,7 @@
 # continuous palette: colfunc(256), reversed by default (inferno: light = low, dark = high)
 .ContinuousPalette <- function(colfunc = NULL, rev_colors = TRUE){
     if(is.null(colfunc)) colfunc <- .DefaultColfunc()
+    if(is.character(colfunc)) colfunc <- PaletteFunction(colfunc)
     pal <- colfunc(256)
     if(rev_colors) pal <- rev(pal)
     pal
@@ -71,9 +72,14 @@
     function(n) grDevices::hcl.colors(n, 'Inferno')
 }
 
-# named color vector from a named vector, or a data frame with the groups in the first column and the colors in the
-# second (e.g. group/colour, as in PlotEmbedding's color_df); default: ggplot's hue palette over the levels
+# named color vector from a named vector, a data frame with the groups in the first column and the colors in the
+# second (e.g. group/colour, as in PlotEmbedding's color_df), or a palette name (e.g. 'met:Hiroshige', see
+# PaletteColors); default: ggplot's hue palette over the levels
 .AsNamedColors <- function(colors, levels = NULL){
+    if(.IsPaletteName(colors)){
+        if(is.null(levels)) stop('a palette name needs the groups to color.')
+        return(ColorMap(levels, colors))
+    }
     if(is.null(colors)){
         if(is.null(levels)) return(NULL)
         return(stats::setNames(scales::hue_pal()(length(levels)), levels))

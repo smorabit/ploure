@@ -55,7 +55,8 @@ FeatureEmbedding(
 
 \item{same_range}{If TRUE, all features share one color range.}
 
-\item{colfunc}{Palette function (integer -> colors); default \code{viridis::inferno}.}
+\item{colfunc}{Palette function (integer -> colors) or a palette name (\code{\link[=PaletteColors]{PaletteColors()}}); default
+\code{viridis::inferno}.}
 
 \item{rev_colors}{Reverse the palette.}
 

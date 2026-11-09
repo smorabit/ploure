@@ -39,8 +39,9 @@ WriteColors <- function(colors, file, name_col = 'group', color_col = 'hex_color
 #'
 #' @param members Member names (e.g. patients), one per member, or one per cell (duplicates are dropped).
 #' @param parents Parent group of each entry of `members`, same length.
-#' @param ramps Optional named list of color ramps, one per parent (e.g. `list(LC = c('#c7e9c0', '#00441b'))`).
-#'   Default: one light-to-dark HCL ramp per parent, hues evenly spaced.
+#' @param ramps Optional named list of color ramps, one per parent: colors (e.g. `list(LC = c('#c7e9c0', '#00441b'))`)
+#'   or palette names ([PaletteColors()], e.g. `list(LC = 'brewer:Greens')`). Default: one light-to-dark HCL ramp per
+#'   parent, hues evenly spaced.
 #' @param family_labels Optional named vector of legend labels for the parents (e.g. `c(LC = 'Lung cancer')`).
 #'
 #' @return A named color vector over the members, ordered by parent then member. The attribute `families` holds one
@@ -63,6 +64,7 @@ GroupedPalette <- function(members, parents, ramps = NULL, family_labels = NULL)
         ramps <- stats::setNames(lapply(hues, function(h) grDevices::hcl(h, c = c(45, 70, 50), l = c(82, 55, 30))),
                                  lv)
     }
+    ramps <- lapply(ramps, function(r) if(.IsPaletteName(r)) PaletteColors(r, 9, type = 'continuous') else r)
     missing <- setdiff(lv, names(ramps))
     if(length(missing) > 0) stop('no ramp for: ', paste(missing, collapse = ', '))
     colors <- unlist(lapply(lv, function(cur_parent){

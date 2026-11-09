@@ -14,7 +14,7 @@
 #' @param x Grouping column (x axis).
 #' @param y Metric column.
 #' @param color_by Optional column to color the points by (default: all grey).
-#' @param colors Named colors for `color_by`.
+#' @param colors Named colors, or a palette name ([PaletteColors()]), for `color_by`.
 #' @param facet_by Optional column to split the groups into column facets (e.g. disease), with free x space.
 #' @param n_points Points drawn per group (and facet).
 #' @param point_size,point_alpha,point_width Quasirandom point size, transparency and spread.

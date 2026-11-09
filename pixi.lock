@@ -270,6 +270,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-lifecycle-1.0.5-r45hc72bb7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-listenv-1.1.0-r45hacb3a79_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-memoise-2.0.1-r45hc72bb7e_4.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/r-metbrewer-0.2.0-r45hc72bb7e_4.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-miniui-0.1.2-r45hc72bb7e_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-munsell-0.5.1-r45hc72bb7e_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/r-otel-0.2.0-r45hc72bb7e_1.conda
@@ -4135,6 +4136,17 @@ packages:
   run_exports: {}
   size: 57750
   timestamp: 1757456335587
+- conda: https://conda.anaconda.org/conda-forge/noarch/r-metbrewer-0.2.0-r45hc72bb7e_4.conda
+  sha256: 6e7d73c29df68cec11b9cbd182537284060bf13ab7121bab74f3fff845ede4c6
+  md5: 2a768c5da6ff7533c0079083f5e57309
+  depends:
+  - r-base >=4.5,<4.6.0a0
+  - r-ggplot2
+  license: CC0-1.0
+  license_family: CC
+  run_exports: {}
+  size: 79115
+  timestamp: 1758264901548
 - conda: https://conda.anaconda.org/conda-forge/noarch/r-miniui-0.1.2-r45hc72bb7e_1.conda
   sha256: 0e63708e94f3848e7212db1bd8e0b7f4b72084d2d96a523a63ddb3c3102135a8
   md5: 4940389ec03eea86358108ec4bb222a0

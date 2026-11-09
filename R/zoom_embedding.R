@@ -21,11 +21,13 @@
 #' @param full_color_by,subset_color_by Column or gene to color each panel by. Numeric values give a continuous
 #'   feature plot; anything else is categorical.
 #' @param highlight_cells Cells of the full dataset to outline. Default: the cells of `subset` found in `full`.
-#' @param full_colors,subset_colors Named color vectors for categorical panels (default: ggplot hue palette).
+#' @param full_colors,subset_colors Named color vectors or palette names ([PaletteColors()]) for categorical panels
+#'   (default: ggplot hue palette).
 #' @param layer,assay Assay layer and assay for genes in Seurat objects (default: `data` of the default assay).
 #' @param plot_min,plot_max Color limits for continuous panels, as a `'qNN'` percentile string or a number; one value
 #'   for both panels or two (full, subset).
-#' @param colfunc,rev_colors Palette function for continuous panels (default `viridis::inferno`, reversed).
+#' @param colfunc,rev_colors Palette function or palette name for continuous panels (default `viridis::inferno`,
+#'   reversed).
 #' @param full_label_by,subset_label_by Optional categorical column to label in each panel, at each group's medoid
 #'   cell ([GroupLabels()]).
 #' @param label_map Optional named vector mapping group names to label text (e.g. `c(P07 = 'P07 LC')`).

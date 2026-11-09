@@ -20,6 +20,8 @@ r-mass = "*"
 r-viridis = "*"
 r-cowplot = "*"
 r-colorspace = "*"
+r-metbrewer = "*"
+r-rcolorbrewer = "*"
 # development
 r-devtools = "*"
 r-roxygen2 = "*"
@@ -28,6 +30,8 @@ r-vdiffr = "*"
 r-svglite = "*"
 
 [tasks]
+# NatParksPalettes is not on conda-forge: install it from CRAN into the environment
+install-natparks = "Rscript -e \"install.packages('NatParksPalettes', repos = 'https://cloud.r-project.org')\""
 document = "Rscript -e \"devtools::document()\""
 test = "Rscript -e \"devtools::test()\""
 check = "bash tools/check.sh"

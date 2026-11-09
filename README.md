@@ -39,6 +39,7 @@ Cached embedding tables can be plotted directly, without wrapping them in a Seur
 | Legends | `LegendGrob()`, `ExtractLegend()` |
 | Themes | `ThemePublication()`, `ThemeEmbedding()` |
 | Palettes | `ReadColors()`, `WriteColors()`, `GroupedPalette()`, `CheckPaletteCVD()` |
+| Palette sources | `PaletteColors()`, `ColorMap()`, `PaletteFunction()`, `ListPalettes()` |
 | Distributions | `QuasiBoxPlot()`, `DistributionStack()` |
 | Dot plot | `DotPlotData()`, `MarkerDotPlot()` |
 | Overview (v0.2) | `QCFlowChart()`, `CohortMatrix()` |
@@ -49,6 +50,11 @@ existing figures are reproduced.
 Conventions for continuous colors (`FeatureEmbedding()`, `ZoomEmbedding()`): limits are percentiles (`'q99'`) or
 numbers; values above the upper limit are clipped; cells at or below the lower limit are drawn in light grey
 underneath; high values are drawn on top; the default palette is viridis inferno, reversed.
+
+Any argument that takes colors also takes a palette name from MetBrewer, NatParksPalettes, RColorBrewer, viridis or
+base R HCL palettes, e.g. `PlotEmbedding(obj, 'cluster', color_df = 'met:Hiroshige')` or
+`FeatureEmbedding(obj, 'CD3E', colfunc = 'parks:Arches')`; `ListPalettes(colorblind = TRUE)` lists them. MetBrewer
+is on conda-forge; NatParksPalettes is CRAN only (`pixi run install-natparks` in the dev environment).
 
 `ThemePublication()` is a complete theme: set it once with `theme_set(ThemePublication())` rather than adding it to
 each plot, so the plotting functions' own theme settings (italic gene names, strip placement) are kept.

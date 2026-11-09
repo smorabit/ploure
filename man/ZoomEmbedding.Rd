@@ -56,14 +56,16 @@ feature plot; anything else is categorical.}
 
 \item{highlight_cells}{Cells of the full dataset to outline. Default: the cells of \code{subset} found in \code{full}.}
 
-\item{full_colors, subset_colors}{Named color vectors for categorical panels (default: ggplot hue palette).}
+\item{full_colors, subset_colors}{Named color vectors or palette names (\code{\link[=PaletteColors]{PaletteColors()}}) for categorical panels
+(default: ggplot hue palette).}
 
 \item{layer, assay}{Assay layer and assay for genes in Seurat objects (default: \code{data} of the default assay).}
 
 \item{plot_min, plot_max}{Color limits for continuous panels, as a \code{'qNN'} percentile string or a number; one value
 for both panels or two (full, subset).}
 
-\item{colfunc, rev_colors}{Palette function for continuous panels (default \code{viridis::inferno}, reversed).}
+\item{colfunc, rev_colors}{Palette function or palette name for continuous panels (default \code{viridis::inferno},
+reversed).}
 
 \item{full_label_by, subset_label_by}{Optional categorical column to label in each panel, at each group's medoid
 cell (\code{\link[=GroupLabels]{GroupLabels()}}).}

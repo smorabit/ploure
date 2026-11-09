@@ -31,7 +31,7 @@ QuasiBoxPlot(
 
 \item{color_by}{Optional column to color the points by (default: all grey).}
 
-\item{colors}{Named colors for \code{color_by}.}
+\item{colors}{Named colors, or a palette name (\code{\link[=PaletteColors]{PaletteColors()}}), for \code{color_by}.}
 
 \item{facet_by}{Optional column to split the groups into column facets (e.g. disease), with free x space.}
 
