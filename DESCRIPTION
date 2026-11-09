@@ -1,0 +1,38 @@
+Package: ploure
+Title: Plotting Utilities for Single-Cell Data
+Version: 0.0.0.9000
+Authors@R:
+    person('Samuel', 'Morabito', email = 'smorabit82@gmail.com', role = c('aut', 'cre'))
+Description: Lightweight plotting functions shared across single-cell projects: embeddings with corner axes, cell
+    outlines and zoom-in panels, publication themes and palettes, per-group metric distributions and marker dot
+    plots. Every plot draws from a tidy per-cell data frame, fetched from a Seurat object or taken as a plain data
+    frame.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends:
+    R (>= 4.1)
+Imports:
+    ggplot2 (>= 3.5.0),
+    ggrastr,
+    grDevices,
+    grid,
+    patchwork,
+    scales,
+    stats,
+    utils
+Suggests:
+    colorspace,
+    cowplot,
+    ggbeeswarm,
+    ggrepel,
+    MASS,
+    Matrix,
+    Seurat,
+    SeuratObject,
+    testthat (>= 3.0.0),
+    vdiffr,
+    viridis
+Config/testthat/edition: 3
+LazyData: true
+Config/roxygen2/version: 8.1.0

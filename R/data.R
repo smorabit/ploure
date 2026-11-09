@@ -1,0 +1,18 @@
+#' Simulated single-cell table
+#'
+#' 3,000 simulated cells for examples and tests (no real data): nine clusters of three lineages on a 2D embedding,
+#' a separate embedding of the lymphoid cells, nine patients in three disease groups, QC metrics, a continuous score
+#' and eight marker genes. Made by `data-raw/sim_cells.R`.
+#'
+#' @format A data frame with one row per cell:
+#' \describe{
+#'   \item{cell}{Cell name.}
+#'   \item{umap_1, umap_2}{Embedding of all cells.}
+#'   \item{sub_umap_1, sub_umap_2}{Embedding of the lymphoid cells (NA for the others).}
+#'   \item{cluster, lineage}{Cluster (factor) and its lineage.}
+#'   \item{patient, disease, sample}{Patient, disease group (LC, BC, OC) and sample.}
+#'   \item{n_umi, n_genes, pct_mt}{QC metrics.}
+#'   \item{score}{A continuous score, high in CD8 T and NK cells.}
+#'   \item{CD3E, CD8A, NKG7, MS4A1, LYZ, CD14, COL1A1, PECAM1}{Log-normalized-like expression of marker genes.}
+#' }
+'sim_cells'

@@ -1,0 +1,7 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.pixi/
+*.pdf
+tests/testthat/_snaps/**/*.new.svg

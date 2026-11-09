@@ -1,0 +1,10 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^pixi\.toml$
+^pixi\.lock$
+^\.pixi$
+^data-raw$
+^README\.md$
+^\.claude$
+^tools$
