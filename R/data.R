@@ -32,10 +32,11 @@
 
 #' Simulated sample table
 #'
-#' Example input of [CohortMatrix()] (no real data): one row per sample of [sim_cells], with sample design, data
+#' Example input of [CohortMatrix()] and [QCSummary()] (no real data): one row per sample of [sim_cells], with sample design, data
 #' and basic clinical variables. Made by `data-raw/sim_samples.R`.
 #'
 #' @format A data frame with one row per sample: `sample`, `patient`, `disease` (factor: LC, BC, OC), `chemistry`,
 #'   `site`, `pct_cd45` and `pct_epcam` (percent of loaded cells), `bulk_rnaseq` (Yes / No), `sex` and `age_group`
-#'   (with missing values).
+#'   (with missing values), and cells per QC stage (`cells_called`, `cells_qc`, `cells_final`; the final cells are the
+#'   cells of [sim_cells]).
 'sim_samples'

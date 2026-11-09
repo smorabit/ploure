@@ -7,13 +7,14 @@
 \format{
 A data frame with one row per sample: \code{sample}, \code{patient}, \code{disease} (factor: LC, BC, OC), \code{chemistry},
 \code{site}, \code{pct_cd45} and \code{pct_epcam} (percent of loaded cells), \code{bulk_rnaseq} (Yes / No), \code{sex} and \code{age_group}
-(with missing values).
+(with missing values), and cells per QC stage (\code{cells_called}, \code{cells_qc}, \code{cells_final}; the final cells are the
+cells of \link{sim_cells}).
 }
 \usage{
 sim_samples
 }
 \description{
-Example input of \code{\link[=CohortMatrix]{CohortMatrix()}} (no real data): one row per sample of \link{sim_cells}, with sample design, data
+Example input of \code{\link[=CohortMatrix]{CohortMatrix()}} and \code{\link[=QCSummary]{QCSummary()}} (no real data): one row per sample of \link{sim_cells}, with sample design, data
 and basic clinical variables. Made by \code{data-raw/sim_samples.R}.
 }
 \keyword{datasets}

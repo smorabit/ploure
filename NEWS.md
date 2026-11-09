@@ -12,6 +12,10 @@
 * `CohortMatrix()`: one column per sample, grouped into facets, with an optional bar plot on top and blocks of square
   tile rows below, each with its own color scale and legend. Generalized from PLEURA's v2 cohort matrix, which it
   reproduces (`validation/pleura_cohort_matrix.R`). Example data: `sim_samples`.
+* `QCSummary()`: cells retained at each stage, QC metric densities per library with the limits, cells per sample at
+  each stage and cell quality per sample, with the sample columns aligned; built from `StageCountPlot()`,
+  `MetricDensityPlot()`, `SampleStagePlot()` and `DistributionStack()` (which gains `show_legend`). Generalized from
+  PLEURA's v2 QC summary, which it reproduces (`validation/pleura_qc_summary.R`).
 
 # ploure 0.1.0
 

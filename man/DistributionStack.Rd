@@ -22,7 +22,8 @@ DistributionStack(
   raster = TRUE,
   raster_dpi = 600,
   x_label = group_by,
-  seed = 12345
+  seed = 12345,
+  show_legend = FALSE
 )
 }
 \arguments{
@@ -53,6 +54,8 @@ DistributionStack(
 \item{x_label}{X axis title.}
 
 \item{seed}{Seed for the point subsample.}
+
+\item{show_legend}{Show the legend of \code{color_by}.}
 }
 \value{
 A ggplot.

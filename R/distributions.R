@@ -72,6 +72,7 @@ QuasiBoxPlot <- function(
 #' @param count_bar Add a row with the number of cells per group (filled by `color_by`, if given).
 #' @param count_label Row label of the count bar.
 #' @param x_label X axis title.
+#' @param show_legend Show the legend of `color_by`.
 #'
 #' @return A ggplot.
 #' @export
@@ -97,7 +98,8 @@ DistributionStack <- function(
     raster = TRUE,
     raster_dpi = 600,
     x_label = group_by,
-    seed = 12345
+    seed = 12345,
+    show_legend = FALSE
 ){
     if(is.null(names(metrics))) names(metrics) <- metrics
     names(metrics)[names(metrics) == ''] <- metrics[names(metrics) == '']
@@ -132,7 +134,7 @@ DistributionStack <- function(
         facet_grid(if(is.null(facet_by)) metric ~ . else metric ~ facet, scales = 'free', space = 'free_x',
                    switch = 'y') +
         scale_y_continuous(labels = scales::label_number(big.mark = ',', accuracy = NULL), n.breaks = 4) +
-        labs(x = x_label, y = NULL, color = color_by, fill = color_by) +
+        labs(x = x_label, y = NULL) +
         theme(
             strip.background = element_blank(),
             strip.placement = 'outside',
@@ -142,7 +144,9 @@ DistributionStack <- function(
     if(!is.null(color_by)){
         colors <- .AsNamedColors(colors, levels(df$color))
         p <- p +
-            scale_color_manual(values = colors, aesthetics = c('color', 'fill'), guide = 'none')
+            scale_color_manual(values = colors, aesthetics = c('color', 'fill'), name = color_by) +
+            guides(color = if(show_legend) guide_legend(override.aes = list(size = 2, alpha = 1)) else 'none',
+                   fill = 'none')
     }
     p
 }
