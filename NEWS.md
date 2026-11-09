@@ -3,6 +3,9 @@
 * `QCFlowChart()`: a left-to-right QC flow chart from a table of steps (a shared trunk that fans out into one row per
   branch) and a table of removals by category. Generalized from PLEURA's v2 QC flow chart, which it reproduces
   (`validation/pleura_qc_flow_chart.R`). Example data: `sim_qc_steps`, `sim_qc_removals`.
+* `CohortMatrix()`: one column per sample, grouped into facets, with an optional bar plot on top and blocks of square
+  tile rows below, each with its own color scale and legend. Generalized from PLEURA's v2 cohort matrix, which it
+  reproduces (`validation/pleura_cohort_matrix.R`). Example data: `sim_samples`.
 
 # ploure 0.1.0
 

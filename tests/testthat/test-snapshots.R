@@ -90,4 +90,19 @@ test_that('QC flow chart', {
     vdiffr::expect_doppelganger('qc-flow-chart', p)
 })
 
+test_that('cohort matrix', {
+    cells <- as.data.frame(table(sample = small$sample, lineage = small$lineage), responseName = 'n')
+    p <- CohortMatrix(
+        sim_samples, group_col = 'disease', bar_data = cells, bar_fill = 'lineage', bar_title = 'Lineage',
+        blocks = list(
+            list(vars = c('Chemistry' = 'chemistry', 'Site' = 'site'), title = 'Chemistry / site',
+                 colors = c("5' v2" = '#1b9e77', 'GEM-X' = '#d95f02', 'Site A' = '#7570b3', 'Site B' = '#e7298a')),
+            list(vars = c('Loaded CD45+' = 'pct_cd45', 'Loaded EPCAM+' = 'pct_epcam'), title = 'Cells loaded (%)',
+                 limits = c(0, 100)),
+            list(vars = c('Sex' = 'sex', 'Age' = 'age_group'), title = 'Sex / age')
+        )
+    )
+    vdiffr::expect_doppelganger('cohort-matrix', p)
+})
+
 ggplot2::theme_set(old_theme)
