@@ -12,11 +12,11 @@ PaletteColors(
 )
 }
 \arguments{
-\item{palette}{\code{'source:name'} (e.g. \code{'met:Hiroshige'}, \code{'parks:Yellowstone'}, \code{'brewer:Set2'},
-\code{'viridis:mako'}, \code{'hcl:Zissou 1'}) or a name alone, looked up in the sources in that order. See
+\item{palette}{\code{'source:name'} (e.g. \code{'met:Hiroshige'}, \code{'parks:Yellowstone'}, \code{'brewer:Set2'}, \code{'ggsci:npg'},
+\code{'ggsci:igv'}, \code{'polychrome:glasbey'}, \code{'scico:batlow'}, \code{'viridis:mako'}, \code{'hcl:Zissou 1'}) or a name alone, looked up in the sources in that order. See
 \code{\link[=ListPalettes]{ListPalettes()}}.}
 
-\item{n}{Number of colors; default the palette's own number (required for viridis and hcl).}
+\item{n}{Number of colors; default the palette's own number (required for scico, viridis and hcl).}
 
 \item{type}{\code{'discrete'} (the palette's colors, in its preferred order) or \code{'continuous'} (interpolated along the
 palette).}
@@ -27,8 +27,9 @@ palette).}
 A character vector of hex colors.
 }
 \description{
-Takes colors from MetBrewer, NatParksPalettes, RColorBrewer, viridisLite or base R HCL palettes through one
-interface. Discrete colors follow each palette's own order (as \code{MetBrewer::met.brewer()} does); when more colors
+Takes colors from MetBrewer, NatParksPalettes, RColorBrewer, ggsci, Polychrome, scico, viridisLite or base R HCL
+palettes through one interface. Polychrome palettes lose their near-white colors (e.g. the white that starts
+\code{glasbey}), which vanish on a white background. Discrete colors follow each palette's own order (as \code{MetBrewer::met.brewer()} does); when more colors
 are asked for than a palette has, or for \code{type = 'continuous'}, the palette is interpolated.
 }
 \examples{

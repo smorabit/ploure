@@ -7,8 +7,8 @@
 PaletteFunction(palette, reverse = FALSE)
 }
 \arguments{
-\item{palette}{\code{'source:name'} (e.g. \code{'met:Hiroshige'}, \code{'parks:Yellowstone'}, \code{'brewer:Set2'},
-\code{'viridis:mako'}, \code{'hcl:Zissou 1'}) or a name alone, looked up in the sources in that order. See
+\item{palette}{\code{'source:name'} (e.g. \code{'met:Hiroshige'}, \code{'parks:Yellowstone'}, \code{'brewer:Set2'}, \code{'ggsci:npg'},
+\code{'ggsci:igv'}, \code{'polychrome:glasbey'}, \code{'scico:batlow'}, \code{'viridis:mako'}, \code{'hcl:Zissou 1'}) or a name alone, looked up in the sources in that order. See
 \code{\link[=ListPalettes]{ListPalettes()}}.}
 
 \item{reverse}{Reverse the colors.}

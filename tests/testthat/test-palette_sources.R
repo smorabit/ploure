@@ -58,3 +58,31 @@ test_that('palettes can be listed and filtered', {
     # every listed palette resolves
     for(cur in ListPalettes()$palette) expect_type(PaletteColors(cur, 5), 'character')
 })
+
+test_that('ggsci palettes match the package, by family or family_variant', {
+    skip_if_not_installed('ggsci')
+    # ggsci's functions append an alpha channel ('#E64B35FF')
+    rgb <- function(x) toupper(substr(unname(x), 1, 7))
+    expect_equal(rgb(PaletteColors('ggsci:npg', 5)), rgb(ggsci::pal_npg()(5)))
+    expect_equal(rgb(PaletteColors('ggsci:igv', 40)), rgb(ggsci::pal_igv()(40)))
+    expect_equal(rgb(PaletteColors('ggsci:d3_category20', 20)), rgb(ggsci::pal_d3('category20')(20)))
+    expect_equal(rgb(PaletteColors('ggsci:d3', 3)), rgb(ggsci::pal_d3('category10')(3)))
+})
+
+test_that('Polychrome palettes match the package, without near-white colors', {
+    skip_if_not_installed('Polychrome')
+    glasbey <- unname(Polychrome::glasbey.colors())
+    cols <- PaletteColors('polychrome:glasbey')
+    expect_false('#FFFFFF' %in% cols)
+    expect_equal(cols, glasbey[glasbey %in% cols])
+    expect_equal(PaletteColors('polychrome:palette36', 10), unname(Polychrome::palette36.colors())[1:10])
+})
+
+test_that('scico palettes match the package', {
+    skip_if_not_installed('scico')
+    expect_equal(PaletteColors('scico:batlow', 6), scico::scico(6, palette = 'batlow'))
+    expect_equal(PaletteColors('vik', 6), scico::scico(6, palette = 'vik'))
+    tab <- ListPalettes('scico')
+    expect_equal(tab$type[tab$name == 'vik'], 'diverging')
+    expect_equal(tab$type[tab$name == 'romaO'], 'cyclic')
+})

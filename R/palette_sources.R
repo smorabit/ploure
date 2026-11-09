@@ -5,24 +5,32 @@
 # - met: MetBrewer (palettes from the Metropolitan Museum of Art)
 # - parks: NatParksPalettes (US national parks)
 # - brewer: RColorBrewer
+# - ggsci: journal and other palettes (npg, aaas, nejm, lancet, jama, igv, d3_category20, ...)
+# - polychrome: Polychrome palettes of many distinguishable colors (glasbey, palette36, alphabet, kelly, ...);
+#   near-white colors are dropped, since they vanish on a white background
+# - scico: Crameri's perceptually uniform scientific color maps (batlow, roma, vik, ...)
 # - viridis: viridisLite (magma, inferno, plasma, viridis, cividis, rocket, mako, turbo)
 # - hcl: grDevices::hcl.colors (base R)
 # A palette is named 'source:name' (e.g. 'met:Hiroshige'), or by its name alone, which is looked up in that order.
 #---------------------------------------------------------#
 
-.palette_sources <- c(met = 'MetBrewer', parks = 'NatParksPalettes', brewer = 'RColorBrewer', viridis = 'viridisLite',
-                      hcl = 'grDevices')
+.palette_sources <- c(met = 'MetBrewer', parks = 'NatParksPalettes', brewer = 'RColorBrewer', ggsci = 'ggsci',
+                      polychrome = 'Polychrome', scico = 'scico', viridis = 'viridisLite', hcl = 'grDevices')
+
+.polychrome_palettes <- c('glasbey', 'palette36', 'alphabet', 'green.armytage', 'kelly', 'dark', 'light', 'sky')
+.scico_diverging <- c('bam', 'berlin', 'broc', 'cork', 'lisbon', 'managua', 'roma', 'tofino', 'vanimo', 'vik')
 
 #' Colors from a named palette
 #'
-#' Takes colors from MetBrewer, NatParksPalettes, RColorBrewer, viridisLite or base R HCL palettes through one
-#' interface. Discrete colors follow each palette's own order (as `MetBrewer::met.brewer()` does); when more colors
+#' Takes colors from MetBrewer, NatParksPalettes, RColorBrewer, ggsci, Polychrome, scico, viridisLite or base R HCL
+#' palettes through one interface. Polychrome palettes lose their near-white colors (e.g. the white that starts
+#' `glasbey`), which vanish on a white background. Discrete colors follow each palette's own order (as `MetBrewer::met.brewer()` does); when more colors
 #' are asked for than a palette has, or for `type = 'continuous'`, the palette is interpolated.
 #'
-#' @param palette `'source:name'` (e.g. `'met:Hiroshige'`, `'parks:Yellowstone'`, `'brewer:Set2'`,
-#'   `'viridis:mako'`, `'hcl:Zissou 1'`) or a name alone, looked up in the sources in that order. See
+#' @param palette `'source:name'` (e.g. `'met:Hiroshige'`, `'parks:Yellowstone'`, `'brewer:Set2'`, `'ggsci:npg'`,
+#'   `'ggsci:igv'`, `'polychrome:glasbey'`, `'scico:batlow'`, `'viridis:mako'`, `'hcl:Zissou 1'`) or a name alone, looked up in the sources in that order. See
 #'   [ListPalettes()].
-#' @param n Number of colors; default the palette's own number (required for viridis and hcl).
+#' @param n Number of colors; default the palette's own number (required for scico, viridis and hcl).
 #' @param type `'discrete'` (the palette's colors, in its preferred order) or `'continuous'` (interpolated along the
 #'   palette).
 #' @param reverse Reverse the colors.
@@ -90,13 +98,13 @@ PaletteFunction <- function(palette, reverse = FALSE){
 
 #' List the available palettes
 #'
-#' @param source Optional sources to list (`'met'`, `'parks'`, `'brewer'`, `'viridis'`, `'hcl'`); sources whose
-#'   package is not installed are left out.
+#' @param source Optional sources to list (`'met'`, `'parks'`, `'brewer'`, `'ggsci'`, `'polychrome'`, `'scico'`,
+#'   `'viridis'`, `'hcl'`); sources whose package is not installed are left out.
 #' @param colorblind If TRUE, only palettes flagged as colorblind-friendly by their package (MetBrewer,
-#'   NatParksPalettes, RColorBrewer, viridis).
+#'   NatParksPalettes, RColorBrewer) or designed to be (scico, viridis except turbo).
 #'
 #' @return A data frame with `palette` (the full name to use), `source`, `name`, `n` (colors; NA for generated
-#'   palettes), `type` (qualitative, sequential, diverging, where known) and `colorblind`.
+#'   palettes), `type` (qualitative, sequential, diverging, cyclic, where known) and `colorblind`.
 #' @export
 #' @examples
 #' head(ListPalettes('brewer'))
@@ -155,6 +163,24 @@ ListPalettes <- function(source = NULL, colorblind = NULL){
         n_max <- info[name, 'maxcolors']
         return(list(colors = RColorBrewer::brewer.pal(n_max, name), order = seq_len(n_max)))
     }
+    if(source == 'ggsci'){
+        tab <- .GgsciTable()
+        i <- match(name, tab$name)
+        # a family name alone takes its first variant (e.g. 'd3' -> 'd3_category10')
+        if(is.na(i)) i <- match(name, tab$family)
+        if(is.na(i)) return(NULL)
+        cols <- tab$colors[[i]]
+        return(list(colors = cols, order = seq_along(cols)))
+    }
+    if(source == 'polychrome'){
+        if(!(name %in% .polychrome_palettes)) return(NULL)
+        cols <- .DropNearWhite(unname(getExportedValue('Polychrome', paste0(name, '.colors'))()))
+        return(list(colors = cols, order = seq_along(cols)))
+    }
+    if(source == 'scico'){
+        if(!(name %in% scico::scico_palette_names())) return(NULL)
+        return(list(fun = function(n) scico::scico(n, palette = name)))
+    }
     if(source == 'viridis'){
         opts <- c('magma', 'inferno', 'plasma', 'viridis', 'cividis', 'rocket', 'mako', 'turbo')
         if(!(name %in% opts)) return(NULL)
@@ -178,6 +204,21 @@ ListPalettes <- function(source = NULL, colorblind = NULL){
         return(data.frame(source = source, name = rownames(info), n = info$maxcolors,
                           type = unname(types[as.character(info$category)]), colorblind = info$colorblind))
     }
+    if(source == 'ggsci'){
+        tab <- .GgsciTable()
+        return(data.frame(source = source, name = tab$name, n = lengths(tab$colors),
+                          type = ifelse(tab$family == 'gsea', 'diverging', NA_character_), colorblind = NA))
+    }
+    if(source == 'polychrome'){
+        return(data.frame(source = source, name = .polychrome_palettes,
+                          n = sapply(.polychrome_palettes, function(x) length(.SourcePalette('polychrome', x)$colors)),
+                          type = 'qualitative', colorblind = FALSE))
+    }
+    if(source == 'scico'){
+        opts <- scico::scico_palette_names()
+        type <- ifelse(grepl('O$', opts), 'cyclic', ifelse(opts %in% .scico_diverging, 'diverging', 'sequential'))
+        return(data.frame(source = source, name = opts, n = NA_integer_, type = type, colorblind = TRUE))
+    }
     if(source == 'viridis'){
         opts <- c('magma', 'inferno', 'plasma', 'viridis', 'cividis', 'rocket', 'mako', 'turbo')
         return(data.frame(source = source, name = opts, n = NA_integer_, type = 'sequential',
@@ -190,4 +231,23 @@ ListPalettes <- function(source = NULL, colorblind = NULL){
                                                                          grDevices::hcl.pals(t))))
     data.frame(source = source, name = grDevices::hcl.pals(), n = NA_integer_,
                type = unname(types[grDevices::hcl.pals()]), colorblind = NA)
+}
+
+# the fixed ggsci palettes: one row per family and variant, named 'family' (one variant or 'default') or 'family_variant'
+.GgsciTable <- function(){
+    db <- utils::getFromNamespace('ggsci_db', 'ggsci')
+    do.call(rbind, lapply(names(db), function(family){
+        variants <- names(db[[family]])
+        name <- ifelse(variants == 'default' | length(variants) == 1, family, paste0(family, '_', variants))
+        out <- data.frame(family = family, name = name)
+        out$colors <- lapply(variants, function(v) unname(db[[family]][[v]]))
+        # fixed palettes only (gephi stores generator settings, not colors)
+        out[sapply(out$colors, is.character), ]
+    }))
+}
+
+# drop near-white colors (CIELAB lightness above 93)
+.DropNearWhite <- function(colors){
+    lab <- grDevices::convertColor(t(grDevices::col2rgb(colors)) / 255, from = 'sRGB', to = 'Lab')
+    colors[lab[, 1] <= 93]
 }

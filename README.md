@@ -51,9 +51,10 @@ Conventions for continuous colors (`FeatureEmbedding()`, `ZoomEmbedding()`): lim
 numbers; values above the upper limit are clipped; cells at or below the lower limit are drawn in light grey
 underneath; high values are drawn on top; the default palette is viridis inferno, reversed.
 
-Any argument that takes colors also takes a palette name from MetBrewer, NatParksPalettes, RColorBrewer, viridis or
-base R HCL palettes, e.g. `PlotEmbedding(obj, 'cluster', color_df = 'met:Hiroshige')` or
-`FeatureEmbedding(obj, 'CD3E', colfunc = 'parks:Arches')`; `ListPalettes(colorblind = TRUE)` lists them. MetBrewer
+Any argument that takes colors also takes a palette name from MetBrewer, NatParksPalettes, RColorBrewer, ggsci,
+Polychrome, scico, viridis or base R HCL palettes, e.g. `PlotEmbedding(obj, 'cluster', color_df = 'met:Hiroshige')` or
+`FeatureEmbedding(obj, 'CD3E', colfunc = 'scico:batlow')`. For many clusters, `'polychrome:glasbey'` (30 colors)
+or `'ggsci:igv'` (51) keep neighbors apart; `ListPalettes(colorblind = TRUE)` lists them. MetBrewer
 is on conda-forge; NatParksPalettes is CRAN only (`pixi run install-natparks` in the dev environment).
 
 `ThemePublication()` is a complete theme: set it once with `theme_set(ThemePublication())` rather than adding it to

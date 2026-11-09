@@ -7,15 +7,15 @@
 ListPalettes(source = NULL, colorblind = NULL)
 }
 \arguments{
-\item{source}{Optional sources to list (\code{'met'}, \code{'parks'}, \code{'brewer'}, \code{'viridis'}, \code{'hcl'}); sources whose
-package is not installed are left out.}
+\item{source}{Optional sources to list (\code{'met'}, \code{'parks'}, \code{'brewer'}, \code{'ggsci'}, \code{'polychrome'}, \code{'scico'},
+\code{'viridis'}, \code{'hcl'}); sources whose package is not installed are left out.}
 
 \item{colorblind}{If TRUE, only palettes flagged as colorblind-friendly by their package (MetBrewer,
-NatParksPalettes, RColorBrewer, viridis).}
+NatParksPalettes, RColorBrewer) or designed to be (scico, viridis except turbo).}
 }
 \value{
 A data frame with \code{palette} (the full name to use), \code{source}, \code{name}, \code{n} (colors; NA for generated
-palettes), \code{type} (qualitative, sequential, diverging, where known) and \code{colorblind}.
+palettes), \code{type} (qualitative, sequential, diverging, cyclic, where known) and \code{colorblind}.
 }
 \description{
 List the available palettes
