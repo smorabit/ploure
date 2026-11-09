@@ -14,6 +14,8 @@ A plot belongs here only if:
 
 Project-specific figures stay in their project repository.
 
+The package is R only (no matplotlib counterpart). Module plots stay in hdWGCNA for now.
+
 ## Design: data-frame core, thin object adapters
 
 `FetchCellData()` turns any supported input into one tidy per-cell data frame (`cell`, `x`, `y`, and the requested
