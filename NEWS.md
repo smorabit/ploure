@@ -1,3 +1,9 @@
+# ploure (development version)
+
+* `QCFlowChart()`: a left-to-right QC flow chart from a table of steps (a shared trunk that fans out into one row per
+  branch) and a table of removals by category. Generalized from PLEURA's v2 QC flow chart, which it reproduces
+  (`validation/pleura_qc_flow_chart.R`). Example data: `sim_qc_steps`, `sim_qc_removals`.
+
 # ploure 0.1.0
 
 First release.

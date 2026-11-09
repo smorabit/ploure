@@ -16,3 +16,16 @@
 #'   \item{CD3E, CD8A, NKG7, MS4A1, LYZ, CD14, COL1A1, PECAM1}{Log-normalized-like expression of marker genes.}
 #' }
 'sim_cells'
+
+#' Simulated QC flow tables
+#'
+#' Example inputs of [QCFlowChart()] (no real data): `sim_qc_steps` has a trunk of three shared steps (branch
+#' `'all'`) that fans out into three lineages, one of which has a second review stage; `sim_qc_removals` gives the
+#' removed cells of some steps by category. Made by `data-raw/sim_qc_flow.R`.
+#'
+#' @format `sim_qc_steps`: a data frame with columns `branch`, `step`, `n_in`, `n_out`, `label` and `excluded`.
+#'   `sim_qc_removals`: a data frame with columns `branch`, `step`, `cluster`, `category` and `n_removed`.
+'sim_qc_steps'
+
+#' @rdname sim_qc_steps
+'sim_qc_removals'

@@ -82,4 +82,12 @@ test_that('palette check and legend', {
     vdiffr::expect_doppelganger('legend-grob', patchwork::wrap_elements(leg))
 })
 
+
+test_that('QC flow chart', {
+    p <- QCFlowChart(sim_qc_steps, sim_qc_removals,
+                     branch_colors = c(Lymphoid = '#1f78b4', Myeloid = '#e31a1c', Stromal = '#33a02c'),
+                     category_labels = c('Damaged / low quality' = 'Damaged / LQ'), titles = c('All cells', 'Per lineage'))
+    vdiffr::expect_doppelganger('qc-flow-chart', p)
+})
+
 ggplot2::theme_set(old_theme)
