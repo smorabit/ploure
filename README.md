@@ -54,6 +54,15 @@ each plot, so the plotting functions' own theme settings (italic gene names, str
 
 A worked example that draws the four kinds of zoom figure from simulated data: `inst/examples/zoom_figures.R`.
 
+## Validation against PLEURA
+
+`validation/pleura_comparison.R` redraws PLEURA figures with the original utilities and with ploure, in PLEURA's
+own R environment (ploure installed into `validation/lib`), and compares the built plot data layer by layer. Its
+figures and library are local only (git-ignored). At v0.1.0 all 91 compared layers are identical: PlotEmbedding,
+FeatureEmbedding (table and Seurat inputs), the four ZoomEmbedding figures, the marker dot plot, the boxes and count
+bars of the per-cluster QC stack, and the grouped patient palette. The QC stack's point subsample differs by design
+(fixed per-group sampling).
+
 ## Install into a project
 
 Pin a tag, so published figures keep regenerating when defaults change later.

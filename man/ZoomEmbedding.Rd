@@ -104,7 +104,8 @@ legend, e.g. a few color families when the points are colored by patient and the
 
 \item{legend_height}{Height of the legend row relative to the plots.}
 
-\item{seed}{Seed for the point shuffle and medoid sampling.}
+\item{seed}{Seed for the point shuffle and the medoid sampling (one random stream, so labels are placed as in the
+PLEURA version).}
 }
 \value{
 A patchwork object (the plot, with a legend under each panel).

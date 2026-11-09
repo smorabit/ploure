@@ -15,6 +15,7 @@ GroupLabels(
   fontface = "plain",
   halo = TRUE,
   seed = 1,
+  medoid_seed = seed,
   ...
 )
 }
@@ -37,7 +38,10 @@ groups keep their name.}
 
 \item{halo}{Draw a white halo behind the text.}
 
-\item{seed}{Seed for the medoid sampling and the label repulsion.}
+\item{seed}{Seed for the label repulsion.}
+
+\item{medoid_seed}{Seed for the medoid sampling (groups of more than 500 cells are sampled); NULL continues the
+session's random stream. The global random state is restored afterwards unless NULL.}
 
 \item{...}{Further arguments to \code{\link[ggrepel:geom_text_repel]{ggrepel::geom_text_repel()}}.}
 }

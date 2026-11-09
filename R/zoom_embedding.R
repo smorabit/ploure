@@ -47,7 +47,8 @@
 #' @param gap Gap between the panels, as a fraction of the full embedding's x range.
 #' @param dash Line style shared by the outline and the zoom lines.
 #' @param legend_height Height of the legend row relative to the plots.
-#' @param seed Seed for the point shuffle and medoid sampling.
+#' @param seed Seed for the point shuffle and the medoid sampling (one random stream, so labels are placed as in the
+#'   PLEURA version).
 #'
 #' @return A patchwork object (the plot, with a legend under each panel).
 #' @export
@@ -194,11 +195,11 @@ ZoomEmbedding <- function(
     # labels at each group's medoid
     if(!is.null(full_label_by)){
         p <- p + GroupLabels(full_df$x, full_df$y, full_df$label, label_map = label_map, size = label_size,
-                             fontface = 'bold', seed = seed)
+                             fontface = 'bold', medoid_seed = NULL)
     }
     if(!is.null(subset_label_by)){
         p <- p + GroupLabels(sub_df$x, sub_df$y, sub_df$label, label_map = label_map, size = label_size,
-                             fontface = 'bold', seed = seed)
+                             fontface = 'bold', medoid_seed = NULL)
     }
 
     p <- p +

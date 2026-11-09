@@ -5,3 +5,8 @@
 .pixi/
 *.pdf
 tests/testthat/_snaps/**/*.new.svg
+
+# validation: figure output and the private R library are local only
+validation/figures/
+validation/lib/
+validation/*.log

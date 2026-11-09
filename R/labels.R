@@ -17,7 +17,9 @@
 #' @param color Label color.
 #' @param fontface Label font face.
 #' @param halo Draw a white halo behind the text.
-#' @param seed Seed for the medoid sampling and the label repulsion.
+#' @param seed Seed for the label repulsion.
+#' @param medoid_seed Seed for the medoid sampling (groups of more than 500 cells are sampled); NULL continues the
+#'   session's random stream. The global random state is restored afterwards unless NULL.
 #' @param ... Further arguments to [ggrepel::geom_text_repel()].
 #'
 #' @return A ggplot layer.
@@ -40,10 +42,11 @@ GroupLabels <- function(
     fontface = 'plain',
     halo = TRUE,
     seed = 1,
+    medoid_seed = seed,
     ...
 ){
     if(!requireNamespace('ggrepel', quietly = TRUE)) stop('labels need the ggrepel package.')
-    centers <- .GroupCenters(x, y, group, match.arg(position), seed)
+    centers <- .GroupCenters(x, y, group, match.arg(position), medoid_seed)
     centers$text <- .MapLabels(centers$group, label_map)
     args <- list(
         data = centers,
@@ -64,13 +67,14 @@ GroupLabels <- function(
     do.call(ggrepel::geom_text_repel, args)
 }
 
-# label positions per group (factor order kept)
+# label positions per group (factor order kept); seed NULL uses the current random stream
 .GroupCenters <- function(x, y, group, position = 'medoid', seed = 1){
     keep <- !is.na(group)
     group <- .AsFactor(group[keep])
     x <- x[keep]
     y <- y[keep]
     with_seed <- function(code){
+        if(is.null(seed)) return(code)
         old <- if(exists('.Random.seed', envir = globalenv())) get('.Random.seed', envir = globalenv()) else NULL
         on.exit(if(!is.null(old)) assign('.Random.seed', old, envir = globalenv()))
         set.seed(seed)
