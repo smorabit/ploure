@@ -445,6 +445,7 @@
 <rect x='606.74' y='240.22' width='46.23' height='111.80' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='612.22' y='253.62' style='font-size: 10.00px; font-family: sans;' textLength='24.46px' lengthAdjust='spacingAndGlyphs'>score</text>
 <image width='17.28' height='86.40' x='612.22' y='260.13' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAABC0lEQVQ4jZVUSZLEMAiT5Pz/yU0fTARk6Zq5pKwVLgHAESIIgYQAQoAgQuZOSMPNsYRhyezCbk51+UWbT4vKshMrLarhf4SKMSMtTEE1HEyooBPmUBwgsVR4yYJlwRAIV52wzGUpIVU8q73Ur4csH3xk/GghomdlrvsuBTHMhsnFy+u9pdSn5uhQttAxXWBbaHJzjV4ftwJcVvu3hYq+wVVoLXehPngTKoFLYps/0wKI+gxzZbcAF3x+WGqh8sFzobhxbOp5Q9Lik8J2eiBurv5vXylqwHYHNDlBQXV4sYTWTCwo9ox157SccLZZ/NozjoSpLi9kwa+ttsSBfQQ3xwGpBdFcHsvVobTwBY90dfVo2IlFAAAAAElFTkSuQmCC'/>
+<rect x='612.22' y='260.13' width='17.28' height='86.40' style='stroke-width: 0.64;' />
 <polyline points='626.05,336.70 629.50,336.70 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='626.05,321.07 629.50,321.07 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='626.05,305.44 629.50,305.44 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />

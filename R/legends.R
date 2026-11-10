@@ -42,7 +42,8 @@ LegendGrob <- function(
             legend.position = position,
             legend.title = element_text(size = title_size, color = 'black'),
             legend.text = element_text(size = text_size, color = 'black'),
-            legend.key.spacing.x = grid::unit(0.5, 'cm')
+            legend.key.spacing.x = grid::unit(0.5, 'cm'),
+            legend.frame = .ColorbarFrame()
         )
     if(!is.null(colors)){
         groups <- names(colors)

@@ -5,7 +5,7 @@
 #' Publication theme
 #'
 #' A clean theme (cowplot-like) that encodes the figure rules: black text, axis lines and ticks; centered plain
-#' titles; bold panel tags and nothing else bold; blank strip backgrounds. The remaining rules are for the labels you
+#' titles; bold panel tags and nothing else bold; blank strip backgrounds; a black border around color bars. The remaining rules are for the labels you
 #' write: sentence case ("Cells per sample", not "Cells Per Sample") and American spelling.
 #'
 #' It is a complete theme, so adding it to a plot (`p + ThemePublication()`) replaces the theme settings the plotting
@@ -47,16 +47,21 @@ ThemePublication <- function(
             strip.placement = 'outside',
             legend.title = element_text(size = base_size - 1),
             legend.text = element_text(size = base_size - 2),
-            legend.key.size = .LegendKeySize(base_size)
+            legend.key.size = .LegendKeySize(base_size),
+            legend.frame = .ColorbarFrame(line_width)
         )
 }
+
+# black border around continuous color bars (ggplot2 >= 3.5 draws legend.frame on color bars only)
+.ColorbarFrame <- function(line_width = 0.3) element_rect(color = 'black', fill = NA, linewidth = line_width)
 
 # ggplot2's legend key size (1.2 lines at grid's 12 pt: 17.28 big points) scaled to the base size; unchanged at 11
 .LegendKeySize <- function(base_size) grid::unit(17.28 * base_size / 11, 'bigpts')
 
 #' Embedding theme
 #'
-#' No axes, a centered plain title and a 1:1 aspect ratio; pair with [EmbeddingAxes()] for corner axes.
+#' No axes, a centered plain title, a 1:1 aspect ratio and a black border around color bars; pair with
+#' [EmbeddingAxes()] for corner axes.
 #'
 #' @param title_size Title size.
 #' @param aspect_ratio Panel aspect ratio (NULL to leave it free, e.g. when the plot already uses `coord_equal()`).
@@ -72,6 +77,7 @@ ThemeEmbedding <- function(title_size = 11, aspect_ratio = 1, base_size = 11){
             legend.title = element_text(size = base_size - 1),
             legend.text = element_text(size = base_size - 2),
             legend.key.size = .LegendKeySize(base_size),
+            legend.frame = .ColorbarFrame(),
             aspect.ratio = aspect_ratio
         )
 }

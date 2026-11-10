@@ -126,6 +126,7 @@ CohortMatrix <- function(
             legend.title = element_text(size = base_size - 1),
             legend.text = element_text(size = base_size - 2),
             legend.key.size = grid::unit(0.35, 'cm'),
+            legend.frame = .ColorbarFrame(),
             legend.justification = c(0, 1),
             plot.margin = margin(1, 5, 1, 5)
         )

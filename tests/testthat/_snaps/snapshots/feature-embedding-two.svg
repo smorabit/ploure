@@ -467,6 +467,7 @@
 <rect x='315.80' y='240.22' width='38.72' height='111.80' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='321.28' y='253.62' style='font-size: 10.00px; font-family: sans;' textLength='26.68px' lengthAdjust='spacingAndGlyphs'>CD3E</text>
 <image width='17.28' height='86.40' x='321.28' y='260.13' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAABC0lEQVQ4jZVUSZLEMAiT5Pz/yU0fTARk6Zq5pKwVLgHAESIIgYQAQoAgQuZOSMPNsYRhyezCbk51+UWbT4vKshMrLarhf4SKMSMtTEE1HEyooBPmUBwgsVR4yYJlwRAIV52wzGUpIVU8q73Ur4csH3xk/GghomdlrvsuBTHMhsnFy+u9pdSn5uhQttAxXWBbaHJzjV4ftwJcVvu3hYq+wVVoLXehPngTKoFLYps/0wKI+gxzZbcAF3x+WGqh8sFzobhxbOp5Q9Lik8J2eiBurv5vXylqwHYHNDlBQXV4sYTWTCwo9ox157SccLZZ/NozjoSpLi9kwa+ttsSBfQQ3xwGpBdFcHsvVobTwBY90dfVo2IlFAAAAAElFTkSuQmCC'/>
+<rect x='321.28' y='260.13' width='17.28' height='86.40' style='stroke-width: 0.64;' />
 <polyline points='335.10,346.39 338.56,346.39 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='335.10,324.64 338.56,324.64 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='335.10,302.89 338.56,302.89 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
@@ -891,6 +892,7 @@
 <rect x='670.32' y='240.22' width='38.72' height='111.80' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <text x='675.80' y='253.62' style='font-size: 10.00px; font-family: sans;' textLength='18.34px' lengthAdjust='spacingAndGlyphs'>LYZ</text>
 <image width='17.28' height='86.40' x='675.80' y='260.13' preserveAspectRatio='none' xlink:href='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAEsCAYAAAACUNnVAAABC0lEQVQ4jZVUSZLEMAiT5Pz/yU0fTARk6Zq5pKwVLgHAESIIgYQAQoAgQuZOSMPNsYRhyezCbk51+UWbT4vKshMrLarhf4SKMSMtTEE1HEyooBPmUBwgsVR4yYJlwRAIV52wzGUpIVU8q73Ur4csH3xk/GghomdlrvsuBTHMhsnFy+u9pdSn5uhQttAxXWBbaHJzjV4ftwJcVvu3hYq+wVVoLXehPngTKoFLYps/0wKI+gxzZbcAF3x+WGqh8sFzobhxbOp5Q9Lik8J2eiBurv5vXylqwHYHNDlBQXV4sYTWTCwo9ox157SccLZZ/NozjoSpLi9kwa+ttsSBfQQ3xwGpBdFcHsvVobTwBY90dfVo2IlFAAAAAElFTkSuQmCC'/>
+<rect x='675.80' y='260.13' width='17.28' height='86.40' style='stroke-width: 0.64;' />
 <polyline points='689.62,346.39 693.08,346.39 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='689.62,324.64 693.08,324.64 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />
 <polyline points='689.62,302.89 693.08,302.89 ' style='stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;' />

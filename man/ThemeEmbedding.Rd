@@ -17,5 +17,5 @@ ThemeEmbedding(title_size = 11, aspect_ratio = 1, base_size = 11)
 A ggplot2 theme.
 }
 \description{
-No axes, a centered plain title and a 1:1 aspect ratio; pair with \code{\link[=EmbeddingAxes]{EmbeddingAxes()}} for corner axes.
+No axes, a centered plain title, a 1:1 aspect ratio and a black border around color bars; pair with \code{\link[=EmbeddingAxes]{EmbeddingAxes()}} for corner axes.
 }

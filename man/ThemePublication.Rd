@@ -26,7 +26,7 @@ A ggplot2 theme.
 }
 \description{
 A clean theme (cowplot-like) that encodes the figure rules: black text, axis lines and ticks; centered plain
-titles; bold panel tags and nothing else bold; blank strip backgrounds. The remaining rules are for the labels you
+titles; bold panel tags and nothing else bold; blank strip backgrounds; a black border around color bars. The remaining rules are for the labels you
 write: sentence case ("Cells per sample", not "Cells Per Sample") and American spelling.
 }
 \details{

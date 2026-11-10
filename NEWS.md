@@ -1,5 +1,8 @@
 # ploure (development version)
 
+* Continuous color bars get a black border (`legend.frame`), matching the axis lines: in `ThemePublication()`,
+  `ThemeEmbedding()`, `CohortMatrix()` and `LegendGrob()` (so also `ZoomEmbedding()`), and so in every function's
+  color bar under these themes.
 * Differential abundance (Milo): `DABeeswarmPlot()` (neighbourhood fold changes per group, quasirandom points under
   an empty boxplot, significant neighbourhoods colored, groups ordered by mean fold change, the means on a right-hand
   axis) and `DAEmbeddingPlot()` (the neighbourhood graph on an embedding, sized by neighbourhood size, with corner
