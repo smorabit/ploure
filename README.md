@@ -64,6 +64,22 @@ each plot, so the plotting functions' own theme settings (italic gene names, str
 
 A worked example that draws the four kinds of zoom figure from simulated data: `inst/examples/zoom_figures.R`.
 
+## Figure font
+
+Journals accept Arial or Helvetica only. Set the font once per session and write every figure with `FigurePDF()`:
+
+```r
+theme_set(ThemePublication())
+SetFigureFont()                    # Arial when installed (warns and uses Helvetica otherwise)
+FigurePDF('figures/fig1.pdf', width = 8, height = 6)
+print(p)
+dev.off()
+CheckFigureFonts('figures/fig1.pdf')  # pdffonts: only Arial / Helvetica
+```
+
+Arial is licensed and not shipped: point fontconfig at a licensed copy (a `fonts.conf` with its folder, and
+`FONTCONFIG_FILE` in the pixi environment's `[activation.env]`, as in PLEURA's `envs/r`).
+
 ## Assembling figures
 
 ploure makes panels; figures are assembled in the project (patchwork). When stacked panels have left margins of

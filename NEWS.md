@@ -1,5 +1,8 @@
 # ploure (development version)
 
+* Figure font: `FigureFont()`, `SetFigureFont()` and `FigurePDF()` use Arial (embedded through `cairo_pdf()`) when a
+  licensed copy is installed, and R's Helvetica through `pdf()` otherwise, with a warning; ggrepel labels included.
+  `CheckFigureFonts()` lists a PDF's fonts with `pdffonts` and flags anything else. Ported from PLEURA.
 * `ThemePublication()` places strips beside an axis outside it (`strip.placement = 'outside'`), so panels stacked
   with patchwork keep their axes on the panels. `DistributionStack()` gains `color_title`. README: assembling
   figures with `patchwork::free()`.

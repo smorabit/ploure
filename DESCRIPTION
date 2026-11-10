@@ -34,6 +34,7 @@ Suggests:
     Polychrome,
     RColorBrewer,
     scico,
+    systemfonts,
     Seurat,
     SeuratObject,
     testthat (>= 3.0.0),
