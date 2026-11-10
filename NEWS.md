@@ -1,4 +1,4 @@
-# ploure (development version)
+# ploure 0.2.0
 
 * Palettes from other packages: `PaletteColors()`, `ColorMap()`, `PaletteFunction()` and `ListPalettes()` take
   palettes from MetBrewer (`'met:Hiroshige'`), NatParksPalettes (`'parks:Yellowstone'`), RColorBrewer, ggsci

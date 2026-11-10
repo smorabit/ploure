@@ -71,6 +71,10 @@ FeatureEmbedding (table and Seurat inputs), the four ZoomEmbedding figures, the 
 bars of the per-cluster QC stack, and the grouped patient palette. The QC stack's point subsample differs by design
 (fixed per-group sampling).
 
+The v0.2 overview figures are checked the same way, each by its own script: `pleura_qc_flow_chart.R`,
+`pleura_cohort_matrix.R` and `pleura_qc_summary.R` (the four-panel QC summary assembled from ploure's panels, as an
+example of a project-level figure).
+
 ## Install into a project
 
 Pin a tag, so published figures keep regenerating when defaults change later.
@@ -80,13 +84,13 @@ From a local clone (works with pixi, which does not install R packages from GitH
 
 ```toml
 [tasks]
-install-ploure = "git -C /path/to/ploure checkout v0.1.0 && R CMD INSTALL /path/to/ploure"
+install-ploure = "git -C /path/to/ploure checkout v0.2.0 && R CMD INSTALL /path/to/ploure"
 ```
 
 Or from GitHub with a token (private repository):
 
 ```r
-remotes::install_github('smorabit/ploure', ref = 'v0.1.0', auth_token = Sys.getenv('GITHUB_PAT'),
+remotes::install_github('smorabit/ploure', ref = 'v0.2.0', auth_token = Sys.getenv('GITHUB_PAT'),
                         upgrade = 'never', dependencies = FALSE)
 ```
 
