@@ -1,3 +1,10 @@
+# ploure (development version)
+
+* `EulerPlot()`: a two-set Euler diagram in plain ggplot (circle areas proportional to the set sizes, overlap to the
+  shared elements), with the overlap statistics below: Jaccard index, overlap coefficient and, given a universe,
+  Fisher's exact test. `SetOverlapStats()` returns the same statistics as a table. Generalized from PLEURA's v1/v2
+  barcode comparison, which it reproduces (`validation/pleura_euler.R`).
+
 # ploure 0.2.0
 
 * Palettes from other packages: `PaletteColors()`, `ColorMap()`, `PaletteFunction()` and `ListPalettes()` take

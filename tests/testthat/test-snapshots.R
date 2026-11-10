@@ -119,4 +119,10 @@ test_that('metric densities', {
     vdiffr::expect_doppelganger('metric-density', p)
 })
 
+test_that('Euler diagram', {
+    p <- EulerPlot(list(Atlas = paste0('g', 1:300), Ours = paste0('g', 201:450)), universe = 2000,
+                   title = 'Marker genes')
+    vdiffr::expect_doppelganger('euler', p)
+})
+
 ggplot2::theme_set(old_theme)

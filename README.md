@@ -43,6 +43,7 @@ Cached embedding tables can be plotted directly, without wrapping them in a Seur
 | Distributions | `QuasiBoxPlot()`, `DistributionStack()` |
 | Dot plot | `DotPlotData()`, `MarkerDotPlot()` |
 | Overview (v0.2) | `QCFlowChart()`, `CohortMatrix()`, `StageCountPlot()`, `MetricDensityPlot()` |
+| Set overlap | `EulerPlot()`, `SetOverlapStats()` |
 
 `PlotEmbedding()` and `FeatureEmbedding()` keep the arguments and defaults of the PLEURA / COMPACT versions, so
 existing figures are reproduced.
