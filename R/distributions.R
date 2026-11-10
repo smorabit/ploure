@@ -73,6 +73,7 @@ QuasiBoxPlot <- function(
 #' @param count_label Row label of the count bar.
 #' @param x_label X axis title.
 #' @param show_legend Show the legend of `color_by`.
+#' @param color_title Legend title (default `color_by`).
 #'
 #' @return A ggplot.
 #' @export
@@ -99,7 +100,8 @@ DistributionStack <- function(
     raster_dpi = 600,
     x_label = group_by,
     seed = 12345,
-    show_legend = FALSE
+    show_legend = FALSE,
+    color_title = color_by
 ){
     if(is.null(names(metrics))) names(metrics) <- metrics
     names(metrics)[names(metrics) == ''] <- metrics[names(metrics) == '']
@@ -144,7 +146,7 @@ DistributionStack <- function(
     if(!is.null(color_by)){
         colors <- .AsNamedColors(colors, levels(df$color))
         p <- p +
-            scale_color_manual(values = colors, aesthetics = c('color', 'fill'), name = color_by) +
+            scale_color_manual(values = colors, aesthetics = c('color', 'fill'), name = color_title) +
             guides(color = if(show_legend) guide_legend(override.aes = list(size = 2, alpha = 1)) else 'none',
                    fill = 'none')
     }

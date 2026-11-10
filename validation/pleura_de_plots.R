@@ -167,9 +167,12 @@ count_labels <- function(p){
 }
 cat('count labels, same numbers:', identical(count_labels(b_orig), count_labels(b_new)), '\n')
 
+# free(): the volcano axis titles sit next to their own axes, not pushed out by the long lineage names below
+fig <- wrap_plots(free(v_orig, type = 'label', side = 'l'), free(v_new, type = 'label', side = 'l'), b_orig, b_new,
+                  ncol = 2)
 cairo_pdf(paste0(fig_dir, 'de_plots_ploure.pdf'), width = 11, height = 9.5)
-print((v_orig | v_new) / (b_orig | b_new))
+print(fig)
 invisible(dev.off())
 png(paste0(fig_dir, 'de_plots_ploure.png'), width = 11, height = 9.5, units = 'in', res = 80, type = 'cairo')
-print((v_orig | v_new) / (b_orig | b_new))
+print(fig)
 invisible(dev.off())

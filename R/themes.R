@@ -43,6 +43,8 @@ ThemePublication <- function(
             plot.tag = element_text(face = 'bold', size = tag_size),
             strip.background = element_blank(),
             strip.text = element_text(color = 'black', size = base_size - 1),
+            # strips beside an axis go outside it; plots stacked with patchwork then keep their axes on the panels
+            strip.placement = 'outside',
             legend.title = element_text(size = base_size - 1),
             legend.text = element_text(size = base_size - 2)
         )

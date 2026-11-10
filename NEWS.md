@@ -1,5 +1,8 @@
 # ploure (development version)
 
+* `ThemePublication()` places strips beside an axis outside it (`strip.placement = 'outside'`), so panels stacked
+  with patchwork keep their axes on the panels. `DistributionStack()` gains `color_title`. README: assembling
+  figures with `patchwork::free()`.
 * `VolcanoPlot()` and `DECountPlot()`: a volcano plot and diverging bars of the significant genes per group, sharing
   one classification (significant or not, split by direction and by |log2(FC)| >= `fc_cutoff`) and its colors. They
   take any results table by column name (`fc_col`, `p_col`, `gene_col`; e.g. DESeq2 `log2FoldChange` / `padj`,

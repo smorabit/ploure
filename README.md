@@ -64,6 +64,19 @@ each plot, so the plotting functions' own theme settings (italic gene names, str
 
 A worked example that draws the four kinds of zoom figure from simulated data: `inst/examples/zoom_figures.R`.
 
+## Assembling figures
+
+ploure makes panels; figures are assembled in the project (patchwork). When stacked panels have left margins of
+different widths (long category names, or the row labels of `DistributionStack()`), patchwork aligns the panels and
+pushes the narrower panel's axis title out to the shared edge. `patchwork::free()` keeps the alignment but lets the
+title sit by its own axis:
+
+```r
+patchwork::free(p_counts, type = 'label', side = 'l') / p_quality
+```
+
+`validation/pleura_qc_summary.R` is a worked example of a full multi-panel figure.
+
 ## Validation against PLEURA
 
 `validation/pleura_comparison.R` redraws PLEURA figures with the original utilities and with ploure, in PLEURA's

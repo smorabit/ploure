@@ -23,7 +23,8 @@ DistributionStack(
   raster_dpi = 600,
   x_label = group_by,
   seed = 12345,
-  show_legend = FALSE
+  show_legend = FALSE,
+  color_title = color_by
 )
 }
 \arguments{
@@ -56,6 +57,8 @@ DistributionStack(
 \item{seed}{Seed for the point subsample.}
 
 \item{show_legend}{Show the legend of \code{color_by}.}
+
+\item{color_title}{Legend title (default \code{color_by}).}
 }
 \value{
 A ggplot.

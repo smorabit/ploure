@@ -77,9 +77,9 @@ p_d <- DistributionStack(
     quality, group_by = 'label', facet_by = 'disease', color_by = 'chemistry', colors = chemistry_colors,
     metrics = c('UMIs (log10)' = 'log10_umi', 'Genes' = 'nFeature_cb', 'Mitochondrial (%)' = 'pct_mt_cb'),
     count_bar = FALSE, point_size = 0.12, box_width = 0.65, box_linewidth = 0.25, raster_dpi = 300, x_label = NULL,
-    show_legend = TRUE
+    show_legend = TRUE, color_title = 'Chemistry'
 ) +
-    labs(title = 'Cell quality per sample', color = 'Chemistry') +
+    labs(title = 'Cell quality per sample') +
     theme(strip.text.x = element_blank(),
           axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 7.5),
           strip.text.y.left = element_text(angle = 90, hjust = 0.5),
@@ -87,7 +87,9 @@ p_d <- DistributionStack(
 
 top <- (p_a + labs(tag = 'a') | patchwork::wrap_elements(full = p_b) + labs(tag = 'b')) +
     patchwork::plot_layout(widths = c(1, 1.6))
-bottom <- (p_c + labs(tag = 'c')) / (p_d + labs(tag = 'd')) +
+# free() keeps the panels of c and d aligned but lets c's axis title sit next to its own axis (d has the metric
+# labels on the left, which would push it out)
+bottom <- patchwork::free(p_c + labs(tag = 'c'), type = 'label', side = 'l') / (p_d + labs(tag = 'd')) +
     patchwork::plot_layout(heights = c(1.1, 3), guides = 'collect')
 p <- patchwork::wrap_elements(top) / patchwork::wrap_elements(bottom) + patchwork::plot_layout(heights = c(1, 2.1))
 
