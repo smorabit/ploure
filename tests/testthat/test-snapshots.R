@@ -125,4 +125,11 @@ test_that('Euler diagram', {
     vdiffr::expect_doppelganger('euler', p)
 })
 
+test_that('differential expression', {
+    de <- sim_de[sim_de$lineage == 'Myeloid', ]
+    vdiffr::expect_doppelganger('volcano', VolcanoPlot(de, label = c('TECH1', 'TECH3'), label_bold = 'MARKD',
+                                                       label_top = 3, raster = FALSE))
+    vdiffr::expect_doppelganger('de-count', DECountPlot(sim_de, group_by = 'lineage'))
+})
+
 ggplot2::theme_set(old_theme)

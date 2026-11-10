@@ -40,3 +40,13 @@
 #'   (with missing values), and cells per QC stage (`cells_called`, `cells_qc`, `cells_final`; the final cells are the
 #'   cells of [sim_cells]).
 'sim_samples'
+
+#' Simulated differential expression results
+#'
+#' Example input of [VolcanoPlot()] and [DECountPlot()] (no real data): limma-style results for 2,000 made-up genes in
+#' each of three lineages, most null and some shifted down or up. The genes `TECH1` to `TECH4` shift strongly in every
+#' lineage and `MARKA` to `MARKD` are names for the label examples. Made by `data-raw/sim_de.R`.
+#'
+#' @format A data frame with one row per gene and lineage: `gene`, `lineage` (factor: Lymphoid, Myeloid, Stromal),
+#'   `logFC`, `AveExpr`, `t`, `P.Value` and `adj.P.Val` (Benjamini-Hochberg, per lineage).
+'sim_de'

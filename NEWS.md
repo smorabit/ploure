@@ -1,5 +1,11 @@
 # ploure (development version)
 
+* `VolcanoPlot()` and `DECountPlot()`: a volcano plot and diverging bars of the significant genes per group, sharing
+  one classification (significant or not, split by direction and by |log2(FC)| >= `fc_cutoff`) and its colors. They
+  take any results table (limma, DESeq2, edgeR, FindMarkers) by column name. The volcano labels given genes, bold
+  genes and the top significant genes. Generalized from PLEURA's chemistry supplementary figure; the volcano is
+  reproduced exactly, and the count bars have the same bars with the counts placed clear of the zero line
+  (`validation/pleura_de_plots.R`). Example data: `sim_de`.
 * `EulerPlot()`: a two-set Euler diagram in plain ggplot (circle areas proportional to the set sizes, overlap to the
   shared elements), with the overlap statistics below: Jaccard index, overlap coefficient and, given a universe,
   Fisher's exact test. `SetOverlapStats()` returns the same statistics as a table. Generalized from PLEURA's v1/v2
