@@ -132,4 +132,11 @@ test_that('differential expression', {
     vdiffr::expect_doppelganger('de-count', DECountPlot(sim_de, group_by = 'lineage'))
 })
 
+test_that('differential abundance', {
+    set.seed(1)
+    vdiffr::expect_doppelganger('da-beeswarm', DABeeswarmPlot(sim_nhoods, color_limit = 3, raster = FALSE))
+    vdiffr::expect_doppelganger('da-embedding', DAEmbeddingPlot(sim_nhoods, x_col = 'umap_1', y_col = 'umap_2',
+                                                                color_limit = 3, raster = FALSE))
+})
+
 ggplot2::theme_set(old_theme)

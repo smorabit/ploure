@@ -1,5 +1,12 @@
 # ploure (development version)
 
+* Differential abundance (Milo): `DABeeswarmPlot()` (neighbourhood fold changes per group, quasirandom points under
+  an empty boxplot, significant neighbourhoods colored, groups ordered by mean fold change, the means on a right-hand
+  axis) and `DAEmbeddingPlot()` (the neighbourhood graph on an embedding, sized by neighbourhood size, with corner
+  axes and optional group labels). Both take the DA results as a data frame with any fold change and significance
+  columns; the embedding plot takes the neighbourhood positions from a Milo object (`miloR`, suggested) or a data
+  frame. Generalized from PLEURA's `DABoxPlot()` and `DAReductionPlot()`, which they reproduce
+  (`validation/pleura_milo.R`). Example data: `sim_nhoods`.
 * Text sizes follow the theme. The text drawn inside plots by `EulerPlot()`, `VolcanoPlot()`, `DECountPlot()`,
   `StageCountPlot()` and `QCFlowChart()` (counts, labels, set names, box text) is sized from the current theme's tick
   labels with the new `ThemeTextSize()`, so it stays at or below the tick-label size and scales with

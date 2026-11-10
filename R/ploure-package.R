@@ -12,5 +12,6 @@
 utils::globalVariables(c(
     'x', 'y', 'xend', 'yend', 'xmin', 'xmax', 'ymin', 'ymax', 'value', 'group', 'label', 'text', 'color', 'hex',
     'condition', 'gene', 'frac', 'expr', 'facet', 'metric', 'gene_group', 'x_group', 'w', 'h', 'fill', 'border',
-    'linetype', 'title', 'title_y', 'body_y', 'body', 'row', 'stage', 'n', 'facet_value', 'set', 'hjust', 'fc', 'status', 'face', 'category'
+    'linetype', 'title', 'title_y', 'body_y', 'body', 'row', 'stage', 'n', 'facet_value', 'set', 'hjust', 'fc', 'status', 'face', 'category',
+    'fc_color', 'nhood_size'
 ))

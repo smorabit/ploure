@@ -25,6 +25,10 @@ r-rcolorbrewer = "*"
 r-ggsci = "*"
 r-polychrome = "*"
 r-scico = "*"
+# Milo objects (DAEmbeddingPlot)
+bioconductor-milor = "*"
+bioconductor-singlecellexperiment = "*"
+r-igraph = "*"
 # development
 r-devtools = "*"
 r-roxygen2 = "*"

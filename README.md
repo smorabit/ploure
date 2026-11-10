@@ -45,6 +45,7 @@ Cached embedding tables can be plotted directly, without wrapping them in a Seur
 | Overview (v0.2) | `QCFlowChart()`, `CohortMatrix()`, `StageCountPlot()`, `MetricDensityPlot()` |
 | Set overlap | `EulerPlot()`, `SetOverlapStats()` |
 | Differential expression | `VolcanoPlot()`, `DECountPlot()` |
+| Differential abundance (Milo) | `DABeeswarmPlot()`, `DAEmbeddingPlot()`, `sim_nhoods` |
 
 `PlotEmbedding()` and `FeatureEmbedding()` keep the arguments and defaults of the PLEURA / COMPACT versions, so
 existing figures are reproduced.
@@ -117,6 +118,11 @@ bars of the per-cluster QC stack, and the grouped patient palette. The QC stack'
 The v0.2 overview figures are checked the same way, each by its own script: `pleura_qc_flow_chart.R`,
 `pleura_cohort_matrix.R` and `pleura_qc_summary.R` (the four-panel QC summary assembled from ploure's panels, as an
 example of a project-level figure).
+
+The Milo DA panels are checked by `pleura_milo.R` against PLEURA's `DABoxPlot()` and `DAReductionPlot()`, for each
+lineage's primary run: the beeswarm points, boxes, group order and means, and both neighbourhood layers of the
+embedding are identical. ploure shows the means as a right-hand axis instead of inside the panel, and adds corner
+axes to the embedding.
 
 ## Install into a project
 

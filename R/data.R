@@ -50,3 +50,14 @@
 #' @format A data frame with one row per gene and lineage: `gene`, `lineage` (factor: Lymphoid, Myeloid, Stromal),
 #'   `logFC`, `AveExpr`, `t`, `P.Value` and `adj.P.Val` (Benjamini-Hochberg, per lineage).
 'sim_de'
+
+#' Simulated Milo neighbourhood results
+#'
+#' Example input of [DABeeswarmPlot()] and [DAEmbeddingPlot()] (no real data): 300 neighbourhoods with index cells
+#' from [sim_cells], their position and size, the index cell's cluster as the label (a few `'Mixed'`), and a fold
+#' change shifted per cluster (higher in CD8 T and NK cells, lower in monocytes and macrophages). Made by
+#' `data-raw/sim_nhoods.R`.
+#'
+#' @format A data frame with one row per neighbourhood: `Nhood`, `umap_1`, `umap_2`, `nhood_size`, `logFC`, `PValue`,
+#'   `SpatialFDR` (here BH-adjusted p values) and `cluster` (factor, the clusters of [sim_cells] and `'Mixed'`).
+'sim_nhoods'
