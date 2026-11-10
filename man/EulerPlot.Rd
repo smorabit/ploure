@@ -14,9 +14,9 @@ EulerPlot(
   alpha = 0.45,
   linewidth = 0.5,
   stats = c("jaccard", "fisher"),
-  count_size = 3.5,
-  label_size = 3.8,
-  stats_size = 3.2,
+  count_size = ThemeTextSize(),
+  label_size = ThemeTextSize(element = "axis.title"),
+  stats_size = ThemeTextSize(0.9),
   title = NULL
 )
 }
@@ -41,7 +41,8 @@ the default), \code{'two.sided'} or \code{'less'}.}
 \item{stats}{Statistics to show below the diagram: any of \code{'jaccard'}, \code{'overlap'} (overlap coefficient) and
 \code{'fisher'} (odds ratio and p value; only with a \code{universe}). \code{NULL} shows none.}
 
-\item{count_size, label_size, stats_size}{Text sizes of the region counts, set labels and statistics.}
+\item{count_size, label_size, stats_size}{Text sizes (mm) of the region counts, set labels and statistics (default:
+the current theme's tick-label size, its axis-title size and 0.9 of the tick-label size; see \code{\link[=ThemeTextSize]{ThemeTextSize()}}).}
 
 \item{title}{Plot title.}
 }

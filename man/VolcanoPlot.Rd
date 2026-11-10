@@ -21,7 +21,7 @@ VolcanoPlot(
   point_alpha = 0.5,
   raster = TRUE,
   raster_dpi = 300,
-  text_size = 2.8,
+  text_size = ThemeTextSize(0.8),
   legend_ncol = 2,
   x_label = expression(log[2] * "(fold change)"),
   y_label = .PLabel(p_col),
@@ -57,7 +57,7 @@ as in FindMarkers and DESeq2 results.}
 
 \item{raster, raster_dpi}{Rasterize the points, and at which resolution.}
 
-\item{text_size}{Label text size.}
+\item{text_size}{Label text size in mm (default 0.8 of the current theme's tick-label size; see \code{\link[=ThemeTextSize]{ThemeTextSize()}}).}
 
 \item{legend_ncol}{Legend columns.}
 

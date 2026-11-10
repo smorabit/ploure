@@ -1,5 +1,13 @@
 # ploure (development version)
 
+* Text sizes follow the theme. The text drawn inside plots by `EulerPlot()`, `VolcanoPlot()`, `DECountPlot()`,
+  `StageCountPlot()` and `QCFlowChart()` (counts, labels, set names, box text) is sized from the current theme's tick
+  labels with the new `ThemeTextSize()`, so it stays at or below the tick-label size and scales with
+  `ThemePublication(base_size = )`; at the default size it matches the previous look. The theme sizes these
+  functions, `CohortMatrix()` and `LegendGrob()` set themselves are now relative to the theme. `EulerPlot()` keeps the
+  current theme (minus axes) instead of `theme_void()`, so its title is the theme's title size, above the set names.
+  `ThemePublication()` and `ThemeEmbedding()` scale the legend key size with `base_size` (unchanged at 11). The
+  ported embedding functions keep their fixed sizes.
 * Figure font: `FigureFont()`, `SetFigureFont()` and `FigurePDF()` use Arial (embedded through `cairo_pdf()`) when a
   licensed copy is installed, and R's Helvetica through `pdf()` otherwise, with a warning; ggrepel labels included.
   `CheckFigureFonts()` lists a PDF's fonts with `pdffonts` and flags anything else. Ported from PLEURA.

@@ -29,7 +29,7 @@
 #' @param symmetric Center the x axis on zero and make the panel square.
 #' @param point_size,point_alpha Point size and transparency.
 #' @param raster,raster_dpi Rasterize the points, and at which resolution.
-#' @param text_size Label text size.
+#' @param text_size Label text size in mm (default 0.8 of the current theme's tick-label size; see [ThemeTextSize()]).
 #' @param legend_ncol Legend columns.
 #' @param x_label,y_label Axis titles (default log2(fold change), and -log10 of the p value, 'adj. P' when `p_col`
 #'   looks adjusted).
@@ -58,7 +58,7 @@ VolcanoPlot <- function(
     point_alpha = 0.5,
     raster = TRUE,
     raster_dpi = 300,
-    text_size = 2.8,
+    text_size = ThemeTextSize(0.8),
     legend_ncol = 2,
     x_label = expression(log[2] * '(fold change)'),
     y_label = .PLabel(p_col),
@@ -97,7 +97,7 @@ VolcanoPlot <- function(
                            labels = .DELegendLabels(direction_labels, fc_cutoff)) +
         guides(color = guide_legend(ncol = legend_ncol, override.aes = list(size = 2.5, alpha = 1))) +
         labs(x = x_label, y = y_label, title = title) +
-        theme(legend.title = element_blank(), legend.position = 'bottom', legend.text = element_text(size = 7),
+        theme(legend.title = element_blank(), legend.position = 'bottom', legend.text = element_text(size = ThemeTextSize(0.8, 'legend.text', 'pt')),
               plot.title = element_text(hjust = 0.5))
     if(symmetric){
         x_max <- ceiling(max(abs(df$fc)))
@@ -135,7 +135,7 @@ DECountPlot <- function(
     direction_labels = c('Down', 'Up'),
     colors = NULL,
     bar_width = 0.6,
-    text_size = 2.3,
+    text_size = ThemeTextSize(0.65),
     legend_ncol = 2,
     x_label = sprintf('Significant genes (%s < %s)', .PName(p_col), p_cutoff)
 ){
@@ -190,7 +190,7 @@ DECountPlot <- function(
         scale_x_continuous(labels = abs, expand = expansion(mult = 0.1)) +
         labs(x = x_label, y = NULL) +
         guides(fill = guide_legend(ncol = legend_ncol)) +
-        theme(legend.title = element_blank(), legend.position = 'bottom', legend.text = element_text(size = 7),
+        theme(legend.title = element_blank(), legend.position = 'bottom', legend.text = element_text(size = ThemeTextSize(0.8, 'legend.text', 'pt')),
               axis.line.y = element_blank(), axis.ticks.y = element_blank())
     p
 }

@@ -110,7 +110,10 @@ CohortMatrix <- function(
     #---------------------------------------------------------#
 
     facet <- facet_grid(. ~ group, scales = 'free_x', space = 'free_x', labeller = as_labeller(strips))
-    base <- theme_classic() +
+    # sizes follow the current theme's base size (11 for the default themes)
+    base_size <- ThemeTextSize(element = 'text', unit = 'pt')
+    base_family <- ggplot2::calc_element('text', theme_get())$family
+    base <- theme_classic(base_size = base_size, base_family = if(is.null(base_family)) '' else base_family) +
         theme(
             text = element_text(color = 'black'),
             axis.title.x = element_blank(),
@@ -120,8 +123,8 @@ CohortMatrix <- function(
             strip.background = element_blank(),
             strip.text = element_blank(),
             panel.spacing.x = grid::unit(gap_cm, 'cm'),
-            legend.title = element_text(size = 10),
-            legend.text = element_text(size = 9),
+            legend.title = element_text(size = base_size - 1),
+            legend.text = element_text(size = base_size - 2),
             legend.key.size = grid::unit(0.35, 'cm'),
             legend.justification = c(0, 1),
             plot.margin = margin(1, 5, 1, 5)
@@ -160,10 +163,10 @@ CohortMatrix <- function(
     }
 
     # strips on the top panel, sample labels under the bottom one
-    if(show_strip) panels[[1]] <- panels[[1]] + theme(strip.text = element_text(size = 11))
+    if(show_strip) panels[[1]] <- panels[[1]] + theme(strip.text = element_text(size = base_size))
     n_panels <- length(panels)
     panels[[n_panels]] <- panels[[n_panels]] +
-        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 8))
+        theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = base_size - 3))
 
     #---------------------------------------------------------#
     # assemble: absolute panel sizes, legends in columns to the right

@@ -78,7 +78,8 @@ SetOverlapStats <- function(a = NULL, b = NULL, counts = NULL, universe = NULL, 
 #' @param alpha,linewidth Circle fill transparency and outline width.
 #' @param stats Statistics to show below the diagram: any of `'jaccard'`, `'overlap'` (overlap coefficient) and
 #'   `'fisher'` (odds ratio and p value; only with a `universe`). `NULL` shows none.
-#' @param count_size,label_size,stats_size Text sizes of the region counts, set labels and statistics.
+#' @param count_size,label_size,stats_size Text sizes (mm) of the region counts, set labels and statistics (default:
+#'   the current theme's tick-label size, its axis-title size and 0.9 of the tick-label size; see [ThemeTextSize()]).
 #' @param title Plot title.
 #'
 #' @return A ggplot, with the statistics as the attribute `stats` ([SetOverlapStats()]).
@@ -97,9 +98,9 @@ EulerPlot <- function(
     alpha = 0.45,
     linewidth = 0.5,
     stats = c('jaccard', 'fisher'),
-    count_size = 3.5,
-    label_size = 3.8,
-    stats_size = 3.2,
+    count_size = ThemeTextSize(),
+    label_size = ThemeTextSize(element = 'axis.title'),
+    stats_size = ThemeTextSize(0.9),
     title = NULL
 ){
     if(!is.null(sets)){
@@ -139,8 +140,10 @@ EulerPlot <- function(
         scale_color_manual(values = colors, guide = 'none') +
         coord_equal(xlim = c(-r1 * 1.8, d + r2 * 1.8), clip = 'off') +
         labs(title = title) +
-        theme_void() +
-        theme(plot.title = element_text(size = 11, hjust = 0.5))
+        # the current theme without axes or panel, so the title follows it
+        theme(axis.line = element_blank(), axis.text = element_blank(), axis.ticks = element_blank(),
+              axis.title = element_blank(), panel.background = element_blank(), panel.border = element_blank(),
+              panel.grid = element_blank())
 
     stats_text <- .OverlapText(ov, stats)
     if(!is.null(stats_text)){

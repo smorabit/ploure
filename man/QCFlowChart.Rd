@@ -18,8 +18,8 @@ QCFlowChart(
   titles = NULL,
   box_width = 2.55,
   col_gap = 0.3,
-  title_size = 3.1,
-  text_size = 2.7,
+  title_size = ThemeTextSize(0.9),
+  text_size = ThemeTextSize(0.75),
   colors = list(box = "grey97", border = "grey30", excluded = "#fbe3e3", excluded_border
     = "#b2182b", edge = "grey30")
 )
@@ -63,7 +63,8 @@ without removing them).
 
 \item{col_gap}{Gap between columns, where the arrows run.}
 
-\item{title_size, text_size}{Box title and body text sizes.}
+\item{title_size, text_size}{Box title and body text sizes in mm (default 0.9 and 0.75 of the current theme's
+tick-label size; see \code{\link[=ThemeTextSize]{ThemeTextSize()}}).}
 
 \item{colors}{Box colors: \code{box}, \code{border}, \code{excluded}, \code{excluded_border} and \code{edge}.}
 }

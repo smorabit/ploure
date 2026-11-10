@@ -38,7 +38,8 @@
 #' @param titles Optional section titles above the trunk and the branches (length 2; NA to leave one out).
 #' @param box_width Width of a step box (plot units; a column is `box_width + col_gap` wide).
 #' @param col_gap Gap between columns, where the arrows run.
-#' @param title_size,text_size Box title and body text sizes.
+#' @param title_size,text_size Box title and body text sizes in mm (default 0.9 and 0.75 of the current theme's
+#'   tick-label size; see [ThemeTextSize()]).
 #' @param colors Box colors: `box`, `border`, `excluded`, `excluded_border` and `edge`.
 #'
 #' @return A ggplot. A good PDF size is about 0.65 inches per column wide and 2 inches per branch row high.
@@ -62,8 +63,8 @@ QCFlowChart <- function(
     titles = NULL,
     box_width = 2.55,
     col_gap = 0.3,
-    title_size = 3.1,
-    text_size = 2.7,
+    title_size = ThemeTextSize(0.9),
+    text_size = ThemeTextSize(0.75),
     colors = list(box = 'grey97', border = 'grey30', excluded = '#fbe3e3', excluded_border = '#b2182b',
                   edge = 'grey30')
 ){

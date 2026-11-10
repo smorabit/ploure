@@ -14,7 +14,7 @@ DECountPlot(
   direction_labels = c("Down", "Up"),
   colors = NULL,
   bar_width = 0.6,
-  text_size = 2.3,
+  text_size = ThemeTextSize(0.65),
   legend_ncol = 2,
   x_label = sprintf("Significant genes (\%s < \%s)", .PName(p_col), p_cutoff)
 )
@@ -37,7 +37,7 @@ limma's; e.g. DESeq2 \code{'log2FoldChange'}, \code{'padj'}; Seurat FindMarkers 
 
 \item{bar_width}{Bar height (as a fraction of the space per group).}
 
-\item{text_size}{Label text size.}
+\item{text_size}{Label text size in mm (default 0.8 of the current theme's tick-label size; see \code{\link[=ThemeTextSize]{ThemeTextSize()}}).}
 
 \item{legend_ncol}{Legend columns.}
 

@@ -79,7 +79,9 @@ p_orig <- ggplot() +
 # ploure, and the layer comparison
 #---------------------------------------------------------#
 
-p_new <- EulerPlot(counts = overlap, colors = version_colors, stats = NULL, title = 'Final barcodes, v1 vs v2')
+# the notebook's text sizes (the defaults follow the theme's tick and axis-title sizes)
+p_new <- EulerPlot(counts = overlap, colors = version_colors, stats = NULL, title = 'Final barcodes, v1 vs v2',
+                   count_size = 3.5, label_size = 3.8)
 
 layer_data <- function(p){
     lapply(ggplot_build(p)$data, function(x) x[, intersect(c('x', 'y', 'fill', 'colour', 'label', 'hjust', 'size',

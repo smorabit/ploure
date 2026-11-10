@@ -14,8 +14,8 @@ LegendGrob(
   bar_width = 5,
   bar_height = 0.35,
   position = "bottom",
-  title_size = 10,
-  text_size = 9
+  title_size = ThemeTextSize(element = "legend.title", unit = "pt"),
+  text_size = ThemeTextSize(element = "legend.text", unit = "pt")
 )
 }
 \arguments{
@@ -35,7 +35,8 @@ LegendGrob(
 
 \item{position}{Legend position (\code{'bottom'}, \code{'right'}, ...).}
 
-\item{title_size, text_size}{Title and key-label text sizes.}
+\item{title_size, text_size}{Title and key-label text sizes in points (default: the current theme's legend title
+and legend text sizes).}
 }
 \value{
 A grob.

@@ -37,7 +37,7 @@ Cached embedding tables can be plotted directly, without wrapping them in a Seur
 | Embeddings | `PlotEmbedding()`, `FeatureEmbedding()`, `ZoomEmbedding()` |
 | Embedding layers | `EmbeddingAxes()`, `EmbeddingAxisLabels()`, `OutlineCells()`, `OutlinePolygon()`, `GroupLabels()` |
 | Legends | `LegendGrob()`, `ExtractLegend()` |
-| Themes | `ThemePublication()`, `ThemeEmbedding()` |
+| Themes | `ThemePublication()`, `ThemeEmbedding()`, `ThemeTextSize()` |
 | Palettes | `ReadColors()`, `WriteColors()`, `GroupedPalette()`, `CheckPaletteCVD()` |
 | Palette sources | `PaletteColors()`, `ColorMap()`, `PaletteFunction()`, `ListPalettes()` |
 | Distributions | `QuasiBoxPlot()`, `DistributionStack()` |
@@ -61,6 +61,15 @@ is on conda-forge; NatParksPalettes is CRAN only (`pixi run install-natparks` in
 
 `ThemePublication()` is a complete theme: set it once with `theme_set(ThemePublication())` rather than adding it to
 each plot, so the plotting functions' own theme settings (italic gene names, strip placement) are kept.
+
+Text sizes follow one order: the plot title is the largest, then axis and legend titles, then tick labels, legend
+entries and text inside the plot (counts, gene labels, set names) at the same size or smaller. At the default
+`base_size = 11`: title 12, axis titles 11, tick labels, legend titles and strips 10, legend entries 9. Change sizes
+through `ThemePublication(base_size = ...)`, not element by element: the text the plotting functions draw inside a
+plot is sized from the current theme when they are called (`ThemeTextSize()`; call `theme_set()` first), and
+`ThemeTextSize(0.9)` gives your own `annotate()` text the same scale. The ported embedding functions
+(`PlotEmbedding()`, `FeatureEmbedding()`, `ZoomEmbedding()`, `GroupLabels()`, `EmbeddingAxes()`) keep fixed label
+sizes, as in PLEURA.
 
 A worked example that draws the four kinds of zoom figure from simulated data: `inst/examples/zoom_figures.R`.
 

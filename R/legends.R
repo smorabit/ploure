@@ -16,7 +16,8 @@
 #' @param key_size Point size of the categorical keys.
 #' @param bar_width,bar_height Color-bar size in cm.
 #' @param position Legend position (`'bottom'`, `'right'`, ...).
-#' @param title_size,text_size Title and key-label text sizes.
+#' @param title_size,text_size Title and key-label text sizes in points (default: the current theme's legend title
+#'   and legend text sizes).
 #'
 #' @return A grob.
 #' @export
@@ -33,8 +34,8 @@ LegendGrob <- function(
     bar_width = 5,
     bar_height = 0.35,
     position = 'bottom',
-    title_size = 10,
-    text_size = 9
+    title_size = ThemeTextSize(element = 'legend.title', unit = 'pt'),
+    text_size = ThemeTextSize(element = 'legend.text', unit = 'pt')
 ){
     base <- theme_void() +
         theme(

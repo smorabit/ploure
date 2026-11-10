@@ -83,7 +83,7 @@ StageCountPlot <- function(
         labs(x = NULL, y = 'Cells', fill = fill_title, title = title) +
         theme(
             axis.text.x = if(!show_x) element_blank() else if(by_sample)
-                element_text(angle = 90, vjust = 0.5, hjust = 1, size = 7.5) else element_text(angle = 45, hjust = 1),
+                element_text(angle = 90, vjust = 0.5, hjust = 1, size = ThemeTextSize(0.75, unit = 'pt')) else element_text(angle = 45, hjust = 1),
             axis.ticks.x = if(show_x) element_line() else element_blank(),
             strip.background = element_blank(),
             panel.spacing.x = grid::unit(0.4, 'lines')
@@ -92,7 +92,7 @@ StageCountPlot <- function(
         totals <- stats::aggregate(list(n = sums$n), by = list(x = sums$x, facet_value = sums$facet_value), FUN = sum)
         totals$text <- scales::label_number(scale = 1e-3, suffix = 'k', accuracy = 0.1)(totals$n)
         p <- p + geom_text(data = totals, aes(x = x, y = n, label = text), inherit.aes = FALSE,
-                           vjust = -0.4, size = 3.2)
+                           vjust = -0.4, size = ThemeTextSize(0.9))
     }
     if(!by_sample && is.null(fill_by)){
         p <- p + scale_fill_manual(values = colors, guide = 'none')

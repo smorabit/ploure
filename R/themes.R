@@ -46,9 +46,13 @@ ThemePublication <- function(
             # strips beside an axis go outside it; plots stacked with patchwork then keep their axes on the panels
             strip.placement = 'outside',
             legend.title = element_text(size = base_size - 1),
-            legend.text = element_text(size = base_size - 2)
+            legend.text = element_text(size = base_size - 2),
+            legend.key.size = .LegendKeySize(base_size)
         )
 }
+
+# ggplot2's legend key size (1.2 lines at grid's 12 pt: 17.28 big points) scaled to the base size; unchanged at 11
+.LegendKeySize <- function(base_size) grid::unit(17.28 * base_size / 11, 'bigpts')
 
 #' Embedding theme
 #'
@@ -67,6 +71,41 @@ ThemeEmbedding <- function(title_size = 11, aspect_ratio = 1, base_size = 11){
             plot.tag = element_text(face = 'bold', size = base_size + 2),
             legend.title = element_text(size = base_size - 1),
             legend.text = element_text(size = base_size - 2),
+            legend.key.size = .LegendKeySize(base_size),
             aspect.ratio = aspect_ratio
         )
+}
+
+#' Text size from the current theme
+#'
+#' The size of a theme text element (by default the axis tick labels) of the current theme, in mm for `geom_text()`
+#' and `annotate()` (`size = `) or in points for `element_text()`. The plotting functions size the text they draw
+#' inside a plot with it, so that text follows the theme set with `theme_set()` (call that first) and stays at or
+#' below the tick labels: the plot title is the largest text, then the axis and legend titles, then the tick labels,
+#' legend keys and annotations.
+#'
+#' @param rel Multiplier of the element's size.
+#' @param element Theme element (e.g. `'axis.text'`, `'axis.title'`, `'legend.text'`).
+#' @param unit `'mm'` (geom text sizes) or `'pt'` (theme sizes).
+#' @param theme The theme (default the current one, [ggplot2::theme_get()]).
+#'
+#' @return A number.
+#' @export
+#' @examples
+#' library(ggplot2)
+#' old <- theme_set(ThemePublication())
+#' ThemeTextSize()                     # tick labels: 10 pt, in mm
+#' ThemeTextSize(0.8)                  # smaller annotations
+#' ThemeTextSize(element = 'axis.title', unit = 'pt')
+#' ggplot(sim_cells, aes(x = cluster)) +
+#'     geom_bar() +
+#'     annotate('text', x = 1, y = 5, label = 'n', size = ThemeTextSize(0.9))
+#' theme_set(old)
+ThemeTextSize <- function(rel = 1, element = 'axis.text', unit = c('mm', 'pt'), theme = ggplot2::theme_get()){
+    unit <- match.arg(unit)
+    size <- ggplot2::calc_element(element, theme)$size
+    if(is.null(size)) size <- ggplot2::calc_element('text', theme)$size
+    if(is.null(size)) size <- 11
+    size <- size * rel
+    if(unit == 'mm') size / ggplot2::.pt else size
 }
