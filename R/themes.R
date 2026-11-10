@@ -47,7 +47,8 @@ ThemePublication <- function(
             strip.placement = 'outside',
             legend.title = element_text(size = base_size - 1),
             legend.text = element_text(size = base_size - 2),
-            legend.key.size = .LegendKeySize(base_size),
+            legend.key.size = .LegendKeySize(base_size - 2),
+            legend.key.spacing.y = .LegendKeySpacing(base_size - 2),
             legend.frame = .ColorbarFrame(line_width)
         )
 }
@@ -55,8 +56,11 @@ ThemePublication <- function(
 # black border around continuous color bars (ggplot2 >= 3.5 draws legend.frame on color bars only)
 .ColorbarFrame <- function(line_width = 0.3) element_rect(color = 'black', fill = NA, linewidth = line_width)
 
-# ggplot2's legend key size (1.2 lines at grid's 12 pt: 17.28 big points) scaled to the base size; unchanged at 11
-.LegendKeySize <- function(base_size) grid::unit(17.28 * base_size / 11, 'bigpts')
+# legend keys sized to the legend text: 1.4 x its size, with 0.25 x between rows (about 15 pt per row at 9 pt text;
+# ggplot2's default, 17.28 pt keys plus 5.5 pt, leaves twice the text height of white space). Larger glyphs (big
+# points, thick lines) still widen their key.
+.LegendKeySize <- function(text_size) grid::unit(1.4 * text_size, 'pt')
+.LegendKeySpacing <- function(text_size) grid::unit(0.25 * text_size, 'pt')
 
 #' Embedding theme
 #'
@@ -76,7 +80,8 @@ ThemeEmbedding <- function(title_size = 11, aspect_ratio = 1, base_size = 11){
             plot.tag = element_text(face = 'bold', size = base_size + 2),
             legend.title = element_text(size = base_size - 1),
             legend.text = element_text(size = base_size - 2),
-            legend.key.size = .LegendKeySize(base_size),
+            legend.key.size = .LegendKeySize(base_size - 2),
+            legend.key.spacing.y = .LegendKeySpacing(base_size - 2),
             legend.frame = .ColorbarFrame(),
             aspect.ratio = aspect_ratio
         )

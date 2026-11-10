@@ -1,5 +1,9 @@
 # ploure (development version)
 
+* Tighter legends: `ThemePublication()`, `ThemeEmbedding()` and `LegendGrob()` size the legend keys to the legend
+  text (1.4 x its size, 0.25 x between rows: about 15 pt per row at 9 pt text instead of ggplot2's 23 pt). Larger
+  glyphs still widen their keys. `ZoomEmbedding()` leaves room between the corner axes and the legend titles, and
+  aligns the two legends at the top.
 * Continuous color bars get a black border (`legend.frame`), matching the axis lines: in `ThemePublication()`,
   `ThemeEmbedding()`, `CohortMatrix()` and `LegendGrob()` (so also `ZoomEmbedding()`), and so in every function's
   color bar under these themes.

@@ -207,7 +207,7 @@ ZoomEmbedding <- function(
     p <- p +
         coord_equal(clip = 'off') +
         theme_void() +
-        theme(legend.position = 'none', plot.margin = margin(15, 5, 0, 5))
+        theme(legend.position = 'none', plot.margin = margin(15, 5, 12, 5))  # bottom: room between the corner axes and the legend titles
 
     #---------------------------------------------------------#
     # legends, each under its own panel
@@ -215,7 +215,7 @@ ZoomEmbedding <- function(
 
     leg_full <- .ZoomLegend(full_df, full_colors, pal, legend_titles[1], legend_ncol[1], legend_colors$full)
     leg_sub <- .ZoomLegend(sub_df, subset_colors, pal, legend_titles[2], legend_ncol[2], legend_colors$subset)
-    legends <- (patchwork::wrap_elements(leg_full) | patchwork::wrap_elements(leg_sub)) +
+    legends <- (patchwork::wrap_elements(.TopAligned(leg_full)) | patchwork::wrap_elements(.TopAligned(leg_sub))) +
         patchwork::plot_layout(widths = c(diff(x_rng) + gap_size / 2, panel_size + gap_size / 2))
     p / legends + patchwork::plot_layout(heights = c(1, legend_height))
 }
@@ -247,4 +247,11 @@ ZoomEmbedding <- function(
     if(attr(df, 'continuous')) return(LegendGrob(limits = attr(df, 'limits'), palette = pal, title = title))
     if(!is.null(override)) return(LegendGrob(colors = override, title = title, ncol = ncol))
     LegendGrob(colors = colors[levels(df$value)], title = title, ncol = ncol)
+}
+
+# a legend grob at the top of its cell (wrap_elements centres it), so legends side by side start at the same height,
+# just under the panels
+.TopAligned <- function(grob){
+    height <- if(inherits(grob, 'gtable')) sum(grob$heights) else grid::grobHeight(grob)
+    grid::gTree(children = grid::gList(grob), vp = grid::viewport(y = 1, just = 'top', height = height))
 }
