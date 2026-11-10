@@ -46,3 +46,30 @@ test_that('the count bars match the significant genes per group', {
     p <- DECountPlot(sim_de, group_by = 'lineage', fc_cutoff = NULL)
     expect_equal(nrow(ggplot2::ggplot_build(p)$data[[1]]), 2 * nlevels(sim_de$lineage))
 })
+
+test_that('other DE tools: column names and genes as rownames', {
+    # DESeq2-style: log2FoldChange / padj, genes as rownames
+    deseq <- data.frame(baseMean = 10, log2FoldChange = de$logFC, pvalue = de$P.Value, padj = de$adj.P.Val,
+                        row.names = de$gene)
+    p <- VolcanoPlot(deseq, fc_col = 'log2FoldChange', p_col = 'padj', label = 'TECH1')
+    expect_equal(p$layers[[5]]$data$gene, 'TECH1')
+    ref <- VolcanoPlot(de, label = 'TECH1')
+    expect_equal(ggplot2::ggplot_build(p)$data[[1]][, c('x', 'y', 'colour')],
+                 ggplot2::ggplot_build(ref)$data[[1]][, c('x', 'y', 'colour')])
+    # Seurat FindMarkers-style: avg_log2FC / p_val_adj, genes as rownames, gene_col = NULL
+    fm <- data.frame(p_val = de$P.Value, avg_log2FC = de$logFC, p_val_adj = de$adj.P.Val, row.names = de$gene)
+    p <- VolcanoPlot(fm, fc_col = 'avg_log2FC', p_col = 'p_val_adj', gene_col = NULL, label_top = 2)
+    expect_length(p$layers[[5]]$data$gene, 2)
+    # an unadjusted p value column gets a plain P axis title; custom axis titles
+    expect_equal(as.character(VolcanoPlot(fm, 'avg_log2FC', 'p_val', NULL)$labels$y), as.character(.PLabel('p_val')))
+    expect_equal(VolcanoPlot(fm, 'avg_log2FC', 'p_val_adj', NULL, x_label = 'AUC')$labels$x, 'AUC')
+    # edgeR-style counts per group
+    edger <- data.frame(genes = de$gene, logFC = sim_de$logFC, FDR = sim_de$adj.P.Val, cluster = sim_de$lineage)
+    p <- DECountPlot(edger, group_by = 'cluster', p_col = 'FDR')
+    expect_equal(ggplot2::ggplot_build(p)$data[[1]],
+                 ggplot2::ggplot_build(DECountPlot(sim_de, group_by = 'lineage'))$data[[1]])
+    # helpful errors
+    expect_error(VolcanoPlot(deseq), 'Set fc_col')
+    plain <- data.frame(log2FoldChange = de$logFC, padj = de$adj.P.Val)
+    expect_error(VolcanoPlot(plain, 'log2FoldChange', 'padj', NULL, label = 'TECH1'), 'need gene names')
+})

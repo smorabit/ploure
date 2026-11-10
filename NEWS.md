@@ -2,7 +2,9 @@
 
 * `VolcanoPlot()` and `DECountPlot()`: a volcano plot and diverging bars of the significant genes per group, sharing
   one classification (significant or not, split by direction and by |log2(FC)| >= `fc_cutoff`) and its colors. They
-  take any results table (limma, DESeq2, edgeR, FindMarkers) by column name. The volcano labels given genes, bold
+  take any results table by column name (`fc_col`, `p_col`, `gene_col`; e.g. DESeq2 `log2FoldChange` / `padj`,
+  FindMarkers `avg_log2FC` / `p_val_adj`, edgeR `logFC` / `FDR`), with the genes in a column or as rownames, and
+  custom axis titles for other effect sizes. The volcano labels given genes, bold
   genes and the top significant genes. Generalized from PLEURA's chemistry supplementary figure; the volcano is
   reproduced exactly, and the count bars have the same bars with the counts placed clear of the zero line
   (`validation/pleura_de_plots.R`). Example data: `sim_de`.

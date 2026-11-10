@@ -14,7 +14,11 @@
 #' (circled, with repelled text). Uses the same categories and colors as [DECountPlot()].
 #'
 #' @param de A data frame of differential expression results, one row per gene.
-#' @param fc_col,p_col,gene_col Log2 fold change, p value (usually adjusted) and gene name columns.
+#' @param fc_col,p_col Effect size (usually log2 fold change) and p value (usually adjusted) columns. Defaults are
+#'   limma's; e.g. DESeq2 `'log2FoldChange'`, `'padj'`; Seurat FindMarkers `'avg_log2FC'`, `'p_val_adj'`; edgeR
+#'   `'logFC'`, `'FDR'`.
+#' @param gene_col Gene name column; `NULL` (or a column that is not there, with the rownames set) uses the rownames,
+#'   as in FindMarkers and DESeq2 results.
 #' @param p_cutoff,fc_cutoff Significance and effect-size cutoffs. `fc_cutoff = NULL` splits by direction only.
 #' @param direction_labels Legend text for the two directions (e.g. `c('Lower in GEM-X', 'Higher in GEM-X')`).
 #' @param colors Named colors by category (`lower_big`, `lower_small`, `higher_small`, `higher_big`, `ns`; or `lower`,
@@ -27,6 +31,8 @@
 #' @param raster,raster_dpi Rasterize the points, and at which resolution.
 #' @param text_size Label text size.
 #' @param legend_ncol Legend columns.
+#' @param x_label,y_label Axis titles (default log2(fold change), and -log10 of the p value, 'adj. P' when `p_col`
+#'   looks adjusted).
 #' @param title Plot title.
 #'
 #' @return A ggplot.
@@ -54,6 +60,8 @@ VolcanoPlot <- function(
     raster_dpi = 300,
     text_size = 2.8,
     legend_ncol = 2,
+    x_label = expression(log[2] * '(fold change)'),
+    y_label = .PLabel(p_col),
     title = NULL
 ){
     df <- .DETable(de, fc_col, p_col, gene_col, p_cutoff, fc_cutoff)
@@ -61,6 +69,9 @@ VolcanoPlot <- function(
     colors <- .DEColors(colors, levels(df$status))
 
     # labelled genes: given, bold, and the top significant ones
+    if(is.null(df$gene) && (length(c(label, label_bold)) > 0 || label_top > 0)){
+        stop('labels need gene names: set gene_col, or give the genes as rownames.')
+    }
     sig <- df[df$status != 'ns', ]
     top <- if(label_top > 0) utils::head(sig$gene[order(sig$p, -abs(sig$fc))], label_top) else NULL
     label_df <- df[df$gene %in% c(label, label_bold, top), ]
@@ -85,7 +96,7 @@ VolcanoPlot <- function(
         scale_color_manual(values = colors, breaks = levels(df$status),
                            labels = .DELegendLabels(direction_labels, fc_cutoff)) +
         guides(color = guide_legend(ncol = legend_ncol, override.aes = list(size = 2.5, alpha = 1))) +
-        labs(x = expression(log[2] * '(fold change)'), y = .PLabel(p_col), title = title) +
+        labs(x = x_label, y = y_label, title = title) +
         theme(legend.title = element_blank(), legend.position = 'bottom', legend.text = element_text(size = 7),
               plot.title = element_text(hjust = 0.5))
     if(symmetric){
@@ -106,7 +117,6 @@ VolcanoPlot <- function(
 #'
 #' @inheritParams VolcanoPlot
 #' @param de A data frame of differential expression results, one row per gene and group.
-#' @param fc_col,p_col Log2 fold change and p value (usually adjusted) columns.
 #' @param group_by Group column; its factor levels (or sorted values) run from top to bottom.
 #' @param bar_width Bar height (as a fraction of the space per group).
 #' @param x_label X axis title.
@@ -185,13 +195,29 @@ DECountPlot <- function(
     p
 }
 
+# rownames that are names, not the default 1..n
+.hasRownames <- function(df){
+    rn <- attr(df, 'row.names')
+    is.character(rn) && !identical(rn, as.character(seq_len(nrow(df))))
+}
+
 # fold change, p value (zeros set to the smallest nonzero p) and category of each gene
 .DETable <- function(de, fc_col, p_col, gene_col, p_cutoff, fc_cutoff){
     de <- as.data.frame(de)
-    missing <- setdiff(c(fc_col, p_col, gene_col), colnames(de))
-    if(length(missing) > 0) stop('columns not found: ', paste(missing, collapse = ', '))
+    has_rownames <- .hasRownames(de)
+    # genes from the rownames (FindMarkers, DESeq2) when there is no gene column
+    use_rownames <- !is.null(gene_col) && !(gene_col %in% colnames(de)) && has_rownames
+    missing <- setdiff(c(fc_col, p_col, if(!use_rownames) gene_col), colnames(de))
+    if(length(missing) > 0){
+        stop('columns not found: ', paste(missing, collapse = ', '), '. Set fc_col / p_col / gene_col to the names ',
+             'in your table (columns: ', paste(utils::head(colnames(de), 12), collapse = ', '), ').')
+    }
     df <- data.frame(fc = de[[fc_col]], p = de[[p_col]])
-    if(!is.null(gene_col)) df$gene <- as.character(de[[gene_col]])
+    if(use_rownames || (is.null(gene_col) && has_rownames)){
+        df$gene <- rownames(de)
+    } else if(!is.null(gene_col)){
+        df$gene <- as.character(de[[gene_col]])
+    }
     if(any(df$p == 0, na.rm = TRUE)) df$p[df$p == 0 & !is.na(df$p)] <- min(df$p[df$p > 0], na.rm = TRUE)
     df$status <- .DECategory(df$fc, df$p, p_cutoff, fc_cutoff)
     df

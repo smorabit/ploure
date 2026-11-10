@@ -23,13 +23,20 @@ VolcanoPlot(
   raster_dpi = 300,
   text_size = 2.8,
   legend_ncol = 2,
+  x_label = expression(log[2] * "(fold change)"),
+  y_label = .PLabel(p_col),
   title = NULL
 )
 }
 \arguments{
 \item{de}{A data frame of differential expression results, one row per gene.}
 
-\item{fc_col, p_col, gene_col}{Log2 fold change, p value (usually adjusted) and gene name columns.}
+\item{fc_col, p_col}{Effect size (usually log2 fold change) and p value (usually adjusted) columns. Defaults are
+limma's; e.g. DESeq2 \code{'log2FoldChange'}, \code{'padj'}; Seurat FindMarkers \code{'avg_log2FC'}, \code{'p_val_adj'}; edgeR
+\code{'logFC'}, \code{'FDR'}.}
+
+\item{gene_col}{Gene name column; \code{NULL} (or a column that is not there, with the rownames set) uses the rownames,
+as in FindMarkers and DESeq2 results.}
 
 \item{p_cutoff, fc_cutoff}{Significance and effect-size cutoffs. \code{fc_cutoff = NULL} splits by direction only.}
 
@@ -53,6 +60,9 @@ VolcanoPlot(
 \item{text_size}{Label text size.}
 
 \item{legend_ncol}{Legend columns.}
+
+\item{x_label, y_label}{Axis titles (default log2(fold change), and -log10 of the p value, 'adj. P' when \code{p_col}
+looks adjusted).}
 
 \item{title}{Plot title.}
 }

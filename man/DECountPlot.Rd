@@ -24,7 +24,9 @@ DECountPlot(
 
 \item{group_by}{Group column; its factor levels (or sorted values) run from top to bottom.}
 
-\item{fc_col, p_col}{Log2 fold change and p value (usually adjusted) columns.}
+\item{fc_col, p_col}{Effect size (usually log2 fold change) and p value (usually adjusted) columns. Defaults are
+limma's; e.g. DESeq2 \code{'log2FoldChange'}, \code{'padj'}; Seurat FindMarkers \code{'avg_log2FC'}, \code{'p_val_adj'}; edgeR
+\code{'logFC'}, \code{'FDR'}.}
 
 \item{p_cutoff, fc_cutoff}{Significance and effect-size cutoffs. \code{fc_cutoff = NULL} splits by direction only.}
 
