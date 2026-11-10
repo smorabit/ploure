@@ -3,7 +3,10 @@
 #     Rscript validation/pleura_qc_summary.R
 
 #---------------------------------------------------------#
-# The PLEURA v2 QC summary (v2/overview/qc_summary_figure.Rmd) drawn with QCSummary
+# The PLEURA v2 QC summary (v2/overview/qc_summary_figure.Rmd) assembled from ploure's panels
+#
+# The layout is PLEURA's own (a project-level figure); ploure gives the panels: StageCountPlot (a, c),
+# MetricDensityPlot (b) and DistributionStack (d).
 #
 # Reads every CellBender cell (analysis_v2/doublets/*_scdblfinder.csv.gz) and the cells per sample at each stage that
 # the notebook wrote (analysis_v2/overview/data/cells_per_sample_stage.csv), and writes
@@ -46,20 +49,47 @@ cb_cells <- rbindlist(lapply(Sys.glob('analysis_v2/doublets/*_scdblfinder.csv.gz
 
 stopifnot(nrow(cb_cells) == 511539, all(cb_cells$sample %in% per_sample$sample))
 
-p <- QCSummary(
-    cb_cells, per_sample,
-    stages = setNames(stage_levels, stage_levels),
+stages <- setNames(stage_levels, stage_levels)
+facet_labels <- setNames(names(disease_labels), disease_labels)
+
+p_a <- StageCountPlot(per_sample, stages, fill_by = 'disease', colors = disease_colors, fill_title = 'Disease')
+
+p_b <- MetricDensityPlot(
+    cb_cells, group_by = 'library', color_by = 'chemistry', colors = chemistry_colors, color_title = 'Chemistry',
     metrics = c('UMIs per cell' = 'nCount_cb', 'Genes per cell' = 'nFeature_cb', 'Mitochondrial (%)' = 'pct_mt_cb'),
-    quality_metrics = c('UMIs (log10)' = 'log10_umi', 'Genes' = 'nFeature_cb', 'Mitochondrial (%)' = 'pct_mt_cb'),
-    sample_col = 'sample', label_col = 'label', library_col = 'library',
-    group_col = 'disease', group_colors = disease_colors, group_labels = setNames(names(disease_labels), disease_labels),
-    color_by = 'chemistry', colors = chemistry_colors,
     thresholds = list(nCount_cb = qc$min_umi, nFeature_cb = qc$min_genes, pct_mt_cb = qc$max_pct_mt),
     trans = c(nCount_cb = 'log10', nFeature_cb = 'log10', pct_mt_cb = 'sqrt'),
     breaks = list(nCount_cb = c(100, 1000, 10000, 100000), nFeature_cb = c(100, 1000, 10000),
-                  pct_mt_cb = c(0, 5, 10, 25, 50, 100)),
-    pass_col = 'passes_loose_qc', raster_dpi = 300, group_title = 'Disease', color_title = 'Chemistry'
+                  pct_mt_cb = c(0, 5, 10, 25, 50, 100))
 )
+
+p_c <- StageCountPlot(per_sample, stages, by_sample = TRUE, label_col = 'label', facet_by = 'disease',
+                      facet_labels = facet_labels, show_x = FALSE)
+
+# panel d: cells passing the permissive QC, with the sample columns in panel c's order (disease, then table order)
+sample_order <- per_sample %>% arrange(disease) %>% pull(label)
+quality <- cb_cells %>%
+    filter(passes_loose_qc) %>%
+    left_join(select(per_sample, sample, label, disease), by = 'sample') %>%
+    mutate(label = factor(label, levels = sample_order),
+           disease = factor(facet_labels[as.character(disease)], levels = names(disease_labels)))
+p_d <- DistributionStack(
+    quality, group_by = 'label', facet_by = 'disease', color_by = 'chemistry', colors = chemistry_colors,
+    metrics = c('UMIs (log10)' = 'log10_umi', 'Genes' = 'nFeature_cb', 'Mitochondrial (%)' = 'pct_mt_cb'),
+    count_bar = FALSE, point_size = 0.12, box_width = 0.65, box_linewidth = 0.25, raster_dpi = 300, x_label = NULL,
+    show_legend = TRUE
+) +
+    labs(title = 'Cell quality per sample', color = 'Chemistry') +
+    theme(strip.text.x = element_blank(),
+          axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1, size = 7.5),
+          strip.text.y.left = element_text(angle = 90, hjust = 0.5),
+          panel.spacing.x = grid::unit(0.4, 'lines'))
+
+top <- (p_a + labs(tag = 'a') | patchwork::wrap_elements(full = p_b) + labs(tag = 'b')) +
+    patchwork::plot_layout(widths = c(1, 1.6))
+bottom <- (p_c + labs(tag = 'c')) / (p_d + labs(tag = 'd')) +
+    patchwork::plot_layout(heights = c(1.1, 3), guides = 'collect')
+p <- patchwork::wrap_elements(top) / patchwork::wrap_elements(bottom) + patchwork::plot_layout(heights = c(1, 2.1))
 
 cairo_pdf(paste0(fig_dir, 'qc_summary_ploure.pdf'), width = 15, height = 16)
 print(p)

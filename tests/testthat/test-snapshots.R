@@ -105,17 +105,18 @@ test_that('cohort matrix', {
     vdiffr::expect_doppelganger('cohort-matrix', p)
 })
 
-test_that('QC summary', {
-    skip_if_not_installed('ggbeeswarm')
-    cells <- small
-    cells$passes <- cells$pct_mt < 15
-    p <- QCSummary(
-        cells, sim_samples, stages = c('Called' = 'cells_called', 'QC' = 'cells_qc', 'Final' = 'cells_final'),
-        metrics = c('UMIs per cell' = 'n_umi', 'Mitochondrial (%)' = 'pct_mt'), group_col = 'disease',
-        color_by = 'disease', thresholds = list(pct_mt = 15), trans = c(n_umi = 'log10', pct_mt = 'sqrt'),
-        pass_col = 'passes', n_points = 50
-    )
-    vdiffr::expect_doppelganger('qc-summary', p)
+test_that('stage counts', {
+    stages <- c('Called' = 'cells_called', 'QC' = 'cells_qc', 'Final' = 'cells_final')
+    vdiffr::expect_doppelganger('stage-count-total', StageCountPlot(sim_samples, stages, fill_by = 'disease'))
+    vdiffr::expect_doppelganger('stage-count-sample',
+                                StageCountPlot(sim_samples, stages, by_sample = TRUE, facet_by = 'disease'))
+})
+
+test_that('metric densities', {
+    p <- MetricDensityPlot(small, metrics = c('UMIs per cell' = 'n_umi', 'Mitochondrial (%)' = 'pct_mt'),
+                           group_by = 'sample', color_by = 'disease', thresholds = list(pct_mt = 15),
+                           trans = c(n_umi = 'log10', pct_mt = 'sqrt'))
+    vdiffr::expect_doppelganger('metric-density', p)
 })
 
 ggplot2::theme_set(old_theme)

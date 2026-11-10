@@ -20,8 +20,17 @@ test_that('stage totals and per-sample bars match the table', {
     p <- StageCountPlot(sim_samples, stages, fill_by = 'disease')
     b <- ggplot2::ggplot_build(p)$data[[1]]
     expect_equal(sum(b$y[b$x == 3] - b$ymin[b$x == 3]), nrow(sim_cells))
-    p <- SampleStagePlot(sim_samples, stages, facet_by = 'disease')
-    expect_equal(nrow(ggplot2::ggplot_build(p)$data[[1]]), 3 * nrow(sim_samples))
+    p <- StageCountPlot(sim_samples, stages, by_sample = TRUE, facet_by = 'disease')
+    b <- ggplot2::ggplot_build(p)$data[[1]]
+    expect_equal(nrow(b), 3 * nrow(sim_samples))
+    expect_equal(sum(b$y), sum(sim_samples[unname(stages)]))
+    expect_warning(StageCountPlot(sim_samples, stages, by_sample = TRUE, fill_by = 'disease'), 'ignored')
+})
+
+test_that('stage totals can be faceted, with one total per facet and stage', {
+    p <- StageCountPlot(sim_samples, stages, fill_by = 'chemistry', facet_by = 'disease')
+    totals <- ggplot2::ggplot_build(p)$data[[2]]
+    expect_equal(nrow(totals), 3 * length(unique(sim_samples$disease)))
 })
 
 test_that('density panels leave out values the transform cannot take', {
@@ -29,11 +38,4 @@ test_that('density panels leave out values the transform cannot take', {
     cells$n_umi[1:10] <- 0
     p <- MetricDensityPlot(cells, c('UMIs' = 'n_umi'), group_by = 'sample', trans = c(n_umi = 'log10'))
     expect_equal(nrow(p[[1]]$data), nrow(cells) - 10)
-})
-
-test_that('the QC summary needs every cell sample in the stage table', {
-    expect_error(QCSummary(sim_cells, sim_samples[-1, ], stages, metrics = 'n_umi'), 'not in stage_counts')
-    p <- QCSummary(sim_cells, sim_samples, stages, metrics = c('UMIs' = 'n_umi'), group_col = 'disease',
-                   color_by = 'disease', pass_col = NULL)
-    expect_s3_class(p, 'patchwork')
 })

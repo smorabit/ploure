@@ -14,7 +14,7 @@ cells of \link{sim_cells}).
 sim_samples
 }
 \description{
-Example input of \code{\link[=CohortMatrix]{CohortMatrix()}} and \code{\link[=QCSummary]{QCSummary()}} (no real data): one row per sample of \link{sim_cells}, with sample design, data
+Example input of \code{\link[=CohortMatrix]{CohortMatrix()}} and \code{\link[=StageCountPlot]{StageCountPlot()}} (no real data): one row per sample of \link{sim_cells}, with sample design, data
 and basic clinical variables. Made by \code{data-raw/sim_samples.R}.
 }
 \keyword{datasets}
