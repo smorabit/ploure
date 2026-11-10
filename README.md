@@ -120,20 +120,20 @@ example of a project-level figure).
 
 ## Install into a project
 
-Pin a tag, so published figures keep regenerating when defaults change later.
+Install the latest version from `main`, and reinstall it before redrawing figures.
 
 From a local clone (works with pixi, which does not install R packages from GitHub itself). In the project's
 `pixi.toml`:
 
 ```toml
 [tasks]
-install-ploure = "git -C /path/to/ploure checkout v0.2.0 && R CMD INSTALL /path/to/ploure"
+install-ploure = "git -C /path/to/ploure pull && R CMD INSTALL /path/to/ploure"
 ```
 
 Or from GitHub with a token (private repository):
 
 ```r
-remotes::install_github('smorabit/ploure', ref = 'v0.2.0', auth_token = Sys.getenv('GITHUB_PAT'),
+remotes::install_github('smorabit/ploure', auth_token = Sys.getenv('GITHUB_PAT'),
                         upgrade = 'never', dependencies = FALSE)
 ```
 
