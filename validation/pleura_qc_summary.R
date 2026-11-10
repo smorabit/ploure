@@ -88,9 +88,10 @@ p_d <- DistributionStack(
 top <- (p_a + labs(tag = 'a') | patchwork::wrap_elements(full = p_b) + labs(tag = 'b')) +
     patchwork::plot_layout(widths = c(1, 1.6))
 # free() keeps the panels of c and d aligned but lets c's axis title sit next to its own axis (d has the metric
-# labels on the left, which would push it out)
+# labels on the left, which would push it out). Legends are not collected: c and d have different legends, and
+# collecting them would centre both on the stack, away from panel c.
 bottom <- patchwork::free(p_c + labs(tag = 'c'), type = 'label', side = 'l') / (p_d + labs(tag = 'd')) +
-    patchwork::plot_layout(heights = c(1.1, 3), guides = 'collect')
+    patchwork::plot_layout(heights = c(1.1, 3))
 p <- patchwork::wrap_elements(top) / patchwork::wrap_elements(bottom) + patchwork::plot_layout(heights = c(1, 2.1))
 
 cairo_pdf(paste0(fig_dir, 'qc_summary_ploure.pdf'), width = 15, height = 16)

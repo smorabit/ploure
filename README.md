@@ -91,6 +91,9 @@ title sit by its own axis:
 patchwork::free(p_counts, type = 'label', side = 'l') / p_quality
 ```
 
+Collect legends (`plot_layout(guides = 'collect')`) only across panels that share them: patchwork centres the
+collected legends on the whole stack, so a panel's own legend ends up next to another panel.
+
 `validation/pleura_qc_summary.R` is a worked example of a full multi-panel figure.
 
 ## Validation against PLEURA
